@@ -2,11 +2,108 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+/* ──────────────────────────────────────────────────────────────────────────
+   Olive Atelier — design tokens
+   A warm off-white, gallery-editorial palette with a single olive accent.
+   Edit these variables to re-theme the whole site.
+   ────────────────────────────────────────────────────────────────────────── */
+:root {
+  --color-page: #faf8f3;
+  --color-surface: #f1ece1;
+  --color-ink: #26251f;
+  --color-muted: #6b6658;
+  --color-accent: #586049;
+  --color-accent-strong: #4c533c; /* hover / pressed */
+  --color-accent-soft: #e7e9dd;
+  --color-border: #e0d9cb;
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    @apply bg-page text-ink;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply leading-relaxed;
+  }
+
+  /* Smooth in-page anchor scrolling, offset for the sticky nav. */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  /* Visible, on-brand focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Uppercase eyebrow label that sits above every section title. */
+  .eyebrow {
+    @apply text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted;
+  }
+
+  /* Short centered accent rule used beneath section titles / hero name. */
+  .hairline {
+    @apply mx-auto h-px w-12 bg-accent;
+  }
+
+  /* Primary (solid olive) and ghost buttons. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm px-7 py-3
+           text-[0.8125rem] font-medium uppercase tracking-[0.08em]
+           transition duration-200;
+  }
+  .btn-primary {
+    @apply bg-accent text-page hover:bg-accent-strong hover:-translate-y-px;
+  }
+  .btn-ghost {
+    @apply border border-ink text-ink hover:bg-accent-soft;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Scroll-reveal — elements fade & rise into view.
+   Progressive enhancement: a `.reveal` element starts hidden, and the FadeIn
+   component adds `.is-visible` once it scrolls into view. We force visibility
+   for users without JS (see <noscript> in root.tsx) and for reduced-motion.
+   ────────────────────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

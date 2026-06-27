@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
+import { couple, wedding } from "./data/wedding";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -17,11 +18,21 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
+  // Inter (body) + Fraunces (display) — the Olive Atelier pairing.
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
   { rel: "stylesheet", href: stylesheet },
+];
+
+export const meta: Route.MetaFunction = () => [
+  { title: `${couple.combined} · We're Getting Married` },
+  {
+    name: "description",
+    content: `Join us to celebrate the wedding of ${couple.combined} on ${wedding.dateLong} in ${wedding.city}.`,
+  },
+  { name: "theme-color", content: "#faf8f3" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -32,8 +43,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Without JS, scroll-reveal elements must still be visible. */}
+        <noscript>
+          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
       </head>
-      <body>
+      <body className="min-h-screen antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-page"
+        >
+          Skip to content
+        </a>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -63,11 +84,15 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <main className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center gap-4 px-6 text-center">
+      <p className="eyebrow">Rohit &amp; Sophia</p>
+      <h1 className="font-display text-5xl">{message}</h1>
+      <p className="text-muted">{details}</p>
+      <a href="/" className="btn btn-primary mt-4">
+        Back home
+      </a>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="mt-6 w-full overflow-x-auto rounded-sm bg-surface p-4 text-left text-xs">
           <code>{stack}</code>
         </pre>
       )}
