@@ -20,13 +20,50 @@ The visual theme (the "Olive Atelier" palette and fonts) is defined as CSS
 variables at the top of [`app/app.css`](app/app.css) — change those to re-theme
 the whole site.
 
-## RSVP submissions
+## RSVP submissions → Google Sheet
 
 The RSVP form posts to the `action` in
-[`app/routes/home.tsx`](app/routes/home.tsx), where it is validated. **There is
-no database wired up** — submissions are currently only logged on the server.
-See the `TODO` in that file for how to capture responses for real (email, a
-spreadsheet, or a database).
+[`app/routes/home.tsx`](app/routes/home.tsx), which validates the input and then
+calls [`saveRsvp`](app/lib/rsvp-store.server.ts). Each submission **upserts a row
+in the sheet's first tab, keyed by email** — a returning guest updates their
+existing row instead of adding a duplicate. Columns: `Timestamp, Name, Email,
+Attending, Guests, Meal, Dietary, Song, Message`. If the first tab is blank, the
+header row is created automatically on the first write; if it already has
+different columns, the write fails loudly rather than corrupting your data (so
+point `GOOGLE_SHEET_ID` at a blank sheet, or one that already has these columns).
+
+Behavior when something isn't set up:
+
+- **Local dev with no credentials** — submissions are logged to the server
+  console and the guest still sees the confirmation, so you can work on the site
+  without any Google setup.
+- **Production with missing credentials or a failed write** — the guest sees a
+  "please try again" message (never a false confirmation) and the full
+  submission is logged so it's recoverable.
+
+### One-time setup
+
+1. **Create a Google Cloud project** and enable the **Google Sheets API**
+   (APIs & Services → Library → "Google Sheets API" → Enable).
+2. **Create a service account** (APIs & Services → Credentials → Create
+   credentials → Service account). Then, on that service account, create a
+   **JSON key** (Keys → Add key → JSON) and download it.
+3. **Create your Google Sheet** and **share it** with the service account's
+   email (the `client_email` in the JSON, ending in
+   `…iam.gserviceaccount.com`) as an **Editor**.
+4. **Set the environment variables** (copy [`.env.example`](.env.example) to
+   `.env` for local dev, and add the same values in your Vercel project
+   settings for production):
+
+   - `GOOGLE_SERVICE_ACCOUNT_EMAIL` — the `client_email` from the JSON.
+   - `GOOGLE_PRIVATE_KEY` — the `private_key` from the JSON, on one line with
+     its `\n` escapes preserved and wrapped in double quotes.
+   - `GOOGLE_SHEET_ID` — the id in the sheet URL
+     (`.../spreadsheets/d/THIS_PART/edit`).
+
+The secrets are only ever read in
+[`app/lib/rsvp-store.server.ts`](app/lib/rsvp-store.server.ts); the `.server.ts`
+suffix keeps them out of the client bundle.
 
 ## Development
 

@@ -15,7 +15,13 @@ export type RsvpValues = {
 
 export type RsvpActionData =
   | { ok: true; name: string; attending: string }
-  | { ok: false; errors: Partial<Record<keyof RsvpValues, string>>; values: RsvpValues };
+  | {
+      ok: false;
+      errors: Partial<Record<keyof RsvpValues, string>>;
+      /** Non-field error, e.g. the Google Sheet write failed. */
+      formError?: string;
+      values: RsvpValues;
+    };
 
 const labelClass =
   "block text-xs font-medium uppercase tracking-[0.12em] text-muted";
@@ -39,6 +45,8 @@ export function RsvpForm() {
 
   const errors = actionData && !actionData.ok ? actionData.errors : {};
   const values = actionData && !actionData.ok ? actionData.values : undefined;
+  const formError =
+    actionData && !actionData.ok ? actionData.formError : undefined;
 
   const [attending, setAttending] = useState<string>(values?.attending ?? "");
 
@@ -231,6 +239,15 @@ export function RsvpForm() {
           className={`${inputClass} resize-none`}
         />
       </div>
+
+      {formError && (
+        <p
+          role="alert"
+          className="rounded-sm border border-[#b3261e] bg-[#b3261e]/5 px-4 py-3 text-center text-sm text-[#b3261e]"
+        >
+          {formError}
+        </p>
+      )}
 
       <div className="flex flex-col items-center gap-4 pt-2">
         <button type="submit" disabled={submitting} className="btn btn-primary">

@@ -10,6 +10,7 @@ import { SiteNav } from "~/components/SiteNav";
 import { Story } from "~/components/Story";
 import { Travel } from "~/components/Travel";
 import type { RsvpActionData, RsvpValues } from "~/components/RsvpForm";
+import { saveRsvp } from "~/lib/rsvp-store.server";
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
@@ -46,15 +47,18 @@ export async function action({
     return { ok: false, errors, values };
   }
 
-  // ──────────────────────────────────────────────────────────────────────
-  // TODO: Persist the RSVP. This template has no database wired up, so the
-  // submission is only logged on the server. To actually capture responses,
-  // replace this with one of:
-  //   • An email to yourselves (e.g. Resend, SendGrid, Postmark)
-  //   • A spreadsheet (Google Sheets / Airtable API)
-  //   • A database (Vercel Postgres, Supabase, Turso, etc.)
-  // ──────────────────────────────────────────────────────────────────────
-  console.log("New RSVP:", values);
+  // Upsert into the Google Sheet (keyed by email). See rsvp-store.server.ts
+  // and the README for the required environment variables.
+  const result = await saveRsvp(values);
+  if (result.status === "error") {
+    return {
+      ok: false,
+      errors: {},
+      formError:
+        "Sorry — we couldn't save your RSVP just now. Please try again in a moment.",
+      values,
+    };
+  }
 
   return { ok: true, name: values.name, attending: values.attending };
 }
