@@ -3,20 +3,23 @@ import { couple } from "~/data/wedding";
 
 const LINKS = [
   { href: "#story", label: "Our Story" },
+  { href: "#gallery", label: "Gallery" },
   { href: "#schedule", label: "Schedule" },
   { href: "#travel", label: "Travel" },
-  { href: "#rsvp", label: "RSVP" },
   { href: "#registry", label: "Registry" },
   { href: "#faq", label: "FAQ" },
 ];
 
 /**
- * Slim sticky nav. Transparent over the hero, then fades to a page-colored bar
- * with a hairline bottom border once scrolled. Collapses to a menu on mobile.
+ * Sticky nav: links left, monogram centered, RSVP as a boxed button on the
+ * right. Transparent with light text over the hero photo, then flips to a
+ * solid page-colored bar with dark text once scrolled (or the mobile menu
+ * is open, since it needs an opaque backdrop either way).
  */
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const inverted = scrolled || open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -30,27 +33,21 @@ export function SiteNav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || open
-          ? "border-b border-hairline bg-page backdrop-blur"
+        inverted
+          ? "border-b border-hairline bg-page/95 backdrop-blur"
           : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a
-          href="#top"
-          className="font-display text-lg tracking-wide"
-          onClick={() => setOpen(false)}
-        >
-          {monogram}
-        </a>
-
+      <nav className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5">
         {/* Desktop links */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 whitespace-nowrap md:flex">
           {LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-xs font-medium uppercase tracking-[0.14em] text-ink transition-colors hover:text-accent"
+                className={`text-xs font-medium uppercase tracking-[0.14em] transition-colors hover:text-accent ${
+                  inverted ? "text-ink" : "text-white"
+                }`}
               >
                 {link.label}
               </a>
@@ -61,16 +58,41 @@ export function SiteNav() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="md:hidden"
+          className="justify-self-start md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="text-xs font-medium uppercase tracking-[0.14em]">
+          <span
+            className={`text-xs font-medium uppercase tracking-[0.14em] ${
+              inverted ? "text-ink" : "text-white"
+            }`}
+          >
             {open ? "Close" : "Menu"}
           </span>
         </button>
+
+        <a
+          href="#top"
+          className={`justify-self-center font-display text-lg tracking-wide ${
+            inverted ? "text-ink" : "text-white"
+          }`}
+          onClick={() => setOpen(false)}
+        >
+          {monogram}
+        </a>
+
+        <a
+          href="#rsvp"
+          className={`justify-self-end px-5 py-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] transition-colors ${
+            inverted
+              ? "bg-ink text-page hover:bg-accent"
+              : "bg-white text-ink hover:bg-white/90"
+          }`}
+        >
+          RSVP
+        </a>
       </nav>
 
       {/* Mobile menu */}

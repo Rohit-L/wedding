@@ -15,9 +15,7 @@ export function Footer() {
         <p className="mt-3 font-display text-lg italic text-accent">
           {couple.hashtag}
         </p>
-        <p className="mt-8 text-xs text-muted">
-          With love, {couple.combined}
-        </p>
+        <p className="mt-8 text-xs text-muted">With love, {couple.combined}</p>
       </div>
     </footer>
   );

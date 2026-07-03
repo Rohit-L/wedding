@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 
 import { Faq } from "~/components/Faq";
 import { Footer } from "~/components/Footer";
+import { Gallery } from "~/components/Gallery";
 import { Hero } from "~/components/Hero";
 import { Registry } from "~/components/Registry";
 import { Rsvp } from "~/components/Rsvp";
@@ -10,13 +11,21 @@ import { SiteNav } from "~/components/SiteNav";
 import { Story } from "~/components/Story";
 import { Travel } from "~/components/Travel";
 import type { RsvpActionData, RsvpValues } from "~/components/RsvpForm";
+import { requireUnlocked } from "~/lib/auth.server";
 import { saveRsvp } from "~/lib/rsvp-store.server";
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
+export async function loader({ request }: Route.LoaderArgs) {
+  await requireUnlocked(request);
+  return null;
+}
+
 export async function action({
   request,
 }: Route.ActionArgs): Promise<RsvpActionData> {
+  await requireUnlocked(request);
+
   const form = await request.formData();
   const values: RsvpValues = {
     name: String(form.get("name") ?? "").trim(),
@@ -70,6 +79,7 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Story />
+        <Gallery />
         <Schedule />
         <Travel />
         <Rsvp />

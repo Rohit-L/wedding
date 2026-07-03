@@ -50,7 +50,7 @@ export function Countdown() {
 
   if (isPast) {
     return (
-      <p className="font-display text-2xl italic text-accent">
+      <p className="font-display text-2xl italic text-white">
         Just married — thank you for celebrating with us.
       </p>
     );
@@ -70,12 +70,14 @@ export function Countdown() {
     >
       {UNITS.map((unit, i) => (
         <div key={unit.key} className="flex">
-          {i > 0 && <div className="w-px self-stretch bg-hairline" aria-hidden />}
+          {i > 0 && <div className="w-px self-stretch bg-white/30" aria-hidden />}
           <div className="px-4 text-center sm:px-7">
             <div className="font-display text-4xl tabular-nums sm:text-5xl">
               {format(unit.key)}
             </div>
-            <div className="eyebrow mt-2">{unit.label}</div>
+            <div className="mt-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-white/70">
+              {unit.label}
+            </div>
           </div>
         </div>
       ))}

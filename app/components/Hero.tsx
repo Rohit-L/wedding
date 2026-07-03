@@ -1,32 +1,44 @@
-import { couple, wedding } from "~/data/wedding";
+import { couple, heroImage, wedding } from "~/data/wedding";
 import { Countdown } from "./Countdown";
 
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen flex-col items-center justify-center px-6 pb-20 pt-28 text-center"
+      className="relative z-0 flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-20 pt-28 text-center text-white"
+      style={{ textShadow: "0 2px 20px rgb(0 0 0 / 35%)" }}
     >
-      {/* Soft warm glow, purely decorative. */}
+      {/* Full-bleed photo. The gradient is a second background layer, so it
+          shows through as an elegant placeholder until heroImage is set. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_30%,rgba(88,96,73,0.06),transparent_70%)]"
+        className="absolute inset-0 -z-20 bg-cover bg-center"
+        style={{
+          backgroundImage: `${heroImage ? `url(${JSON.stringify(heroImage)}), ` : ""}linear-gradient(160deg, #6b6558, #33312b)`,
+        }}
       />
+      {/* Darkening scrim so light text stays legible over any photo. */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
 
-      <p className="eyebrow">Together with their families</p>
+      <p className="text-sm uppercase tracking-[0.3em] text-white/90">
+        Together with their families
+      </p>
 
-      <h1 className="mt-8 font-display text-[clamp(3.5rem,9vw,7.5rem)] font-light leading-[0.95] tracking-[-0.01em]">
-        {couple.partnerOne}{" "}
-        <span className="italic text-accent">&amp;</span>{" "}
+      <h1 className="mt-6 font-display text-[clamp(3.5rem,9vw,7.5rem)] font-normal leading-[0.95] tracking-[-0.01em]">
+        {couple.partnerOne} <span className="italic">&amp;</span>{" "}
         {couple.partnerTwo}
       </h1>
 
-      <div className="mt-8 h-14 w-px bg-accent" aria-hidden />
+      <p className="mt-6 text-xs uppercase tracking-[0.25em] text-white/75">
+        Black Tie Optional
+      </p>
 
-      <p className="mt-8 text-sm uppercase tracking-[0.22em] text-muted">
+      <div className="mt-8 h-12 w-px bg-white/50" aria-hidden />
+
+      <p className="mt-8 text-sm uppercase tracking-[0.22em] text-white/90">
         {wedding.dateLong}
       </p>
-      <p className="mt-2 text-sm uppercase tracking-[0.22em] text-muted">
+      <p className="mt-2 text-sm uppercase tracking-[0.22em] text-white/90">
         {wedding.city}
       </p>
 
@@ -34,19 +46,10 @@ export function Hero() {
         <Countdown />
       </div>
 
-      <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4">
-        <a href="#rsvp" className="btn btn-primary">
-          RSVP
-        </a>
-        <a href="#schedule" className="btn btn-ghost">
-          View Schedule
-        </a>
-      </div>
-
       <a
         href="#story"
         aria-label="Scroll to read our story"
-        className="absolute bottom-8 text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-accent"
+        className="absolute bottom-8 text-xs uppercase tracking-[0.2em] text-white/75 transition-colors hover:text-white"
       >
         Scroll
       </a>

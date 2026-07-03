@@ -22,6 +22,13 @@ export const wedding = {
   venueName: "Villa Serena",
 } as const;
 
+/**
+ * Full-bleed hero background photo, e.g. `/images/hero.jpg` (drop the file
+ * in `public/images/`). Leave empty for an elegant placeholder gradient
+ * until you have a real photo to use.
+ */
+export const heroImage: string = "";
+
 export type WeddingEvent = {
   id: string;
   day: string;
@@ -107,6 +114,26 @@ export const events: WeddingEvent[] = [
     description:
       "One last meal together before you head home. Drop in any time — coffee, pastries, and goodbyes.",
   },
+];
+
+export type EngagementPhoto = {
+  id: string;
+  caption: string;
+  /**
+   * Path to the photo, e.g. `/images/engagement/01.jpg` (add files under
+   * `public/images/engagement/`). Leave unset to show an elegant placeholder
+   * frame with just the caption until you have a real photo to drop in.
+   */
+  src?: string;
+};
+
+export const engagementPhotos: EngagementPhoto[] = [
+  { id: "1", caption: "Where it all began" },
+  { id: "2", caption: "Adventures together" },
+  { id: "3", caption: "Golden hour" },
+  { id: "4", caption: "Just the two of us" },
+  { id: "5", caption: "Silly & in love" },
+  { id: "6", caption: "The proposal" },
 ];
 
 export type StoryMoment = {

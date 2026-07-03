@@ -14,9 +14,9 @@ export function Story() {
         {story.map((moment, i) => (
           <FadeIn key={moment.year}>
             <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
-              {/* Arched gallery-print placeholder. Swap for a real photo. */}
+              {/* Framed placeholder. Swap for a real photo. */}
               <div className={i % 2 === 1 ? "md:order-2" : ""}>
-                <div className="mx-auto flex aspect-[4/5] w-full max-w-xs items-center justify-center rounded-t-full rounded-b-sm border border-hairline bg-surface md:max-w-sm">
+                <div className="mx-auto flex aspect-[4/5] w-full max-w-xs items-center justify-center border border-hairline bg-surface md:max-w-sm">
                   <span className="font-display text-2xl italic text-muted">
                     {moment.year}
                   </span>
