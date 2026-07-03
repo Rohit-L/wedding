@@ -230,6 +230,10 @@ export const faqs: Faq[] = [
     question: "When should I RSVP by?",
     answer: "Please send your response no later than August 1, 2026.",
   },
+  {
+    question: "Are pets allowed?",
+    answer: "Only Coco.",
+  },
 ];
 
 export type RegistryItem = {
