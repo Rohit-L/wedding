@@ -18,8 +18,8 @@ export const wedding = {
   dateISO: "2026-09-12T16:30:00-07:00",
   dateLong: "Saturday, September 12, 2026",
   dateShort: "09 . 12 . 26",
-  city: "Sonoma, California",
-  venueName: "The Vineyard Estate",
+  city: "Lake Como, Italy",
+  venueName: "Villa Serena",
 } as const;
 
 export type WeddingEvent = {
@@ -42,7 +42,7 @@ export const events: WeddingEvent[] = [
     name: "Mehndi & Henna Afternoon",
     time: "2:00 PM – 5:00 PM",
     venue: "The Garden Courtyard",
-    address: "120 Vineyard Lane, Sonoma, CA",
+    address: "Via Regina 12, Lake Como, Italy",
     dressCode: "Casual & colorful",
     description:
       "Join us for an afternoon of henna, music, and sweets to kick off the celebration. Come relaxed and ready to be adorned.",
@@ -54,7 +54,7 @@ export const events: WeddingEvent[] = [
     name: "Sangeet & Welcome Dinner",
     time: "7:00 PM – 11:00 PM",
     venue: "The Grand Pavilion",
-    address: "120 Vineyard Lane, Sonoma, CA",
+    address: "Via Regina 12, Lake Como, Italy",
     dressCode: "Festive cocktail",
     description:
       "A night of music, dancing, and dinner as our families come together. Expect performances, toasts, and a full dance floor.",
@@ -65,11 +65,11 @@ export const events: WeddingEvent[] = [
     date: "September 12, 2026",
     name: "Wedding Ceremony",
     time: "4:30 PM – 5:30 PM",
-    venue: "The Vineyard Terrace",
-    address: "120 Vineyard Lane, Sonoma, CA",
+    venue: "The Lakeside Terrace",
+    address: "Via Regina 12, Lake Como, Italy",
     dressCode: "Formal / black-tie optional",
     description:
-      "The moment we say 'I do', overlooking the vines at golden hour. Please be seated by 4:15 PM.",
+      "The moment we say 'I do', overlooking the lake at golden hour. Please be seated by 4:15 PM.",
   },
   {
     id: "cocktails",
@@ -78,7 +78,7 @@ export const events: WeddingEvent[] = [
     name: "Cocktail Hour",
     time: "5:30 PM – 6:30 PM",
     venue: "The Olive Grove",
-    address: "120 Vineyard Lane, Sonoma, CA",
+    address: "Via Regina 12, Lake Como, Italy",
     dressCode: "Formal / black-tie optional",
     description:
       "Signature cocktails and hors d'oeuvres while we capture a few photos. Mingle, sip, and find your seat.",
@@ -90,7 +90,7 @@ export const events: WeddingEvent[] = [
     name: "Dinner & Reception",
     time: "6:30 PM – 12:00 AM",
     venue: "The Grand Pavilion",
-    address: "120 Vineyard Lane, Sonoma, CA",
+    address: "Via Regina 12, Lake Como, Italy",
     dressCode: "Formal / black-tie optional",
     description:
       "Dinner, dancing, and a few surprises. Stay late — the best part of the night is always after dessert.",
@@ -102,7 +102,7 @@ export const events: WeddingEvent[] = [
     name: "Farewell Brunch",
     time: "10:00 AM – 1:00 PM",
     venue: "The Garden Courtyard",
-    address: "120 Vineyard Lane, Sonoma, CA",
+    address: "Via Regina 12, Lake Como, Italy",
     dressCode: "Casual",
     description:
       "One last meal together before you head home. Drop in any time — coffee, pastries, and goodbyes.",
@@ -138,7 +138,7 @@ export const story: StoryMoment[] = [
     year: "2025",
     title: "The proposal",
     description:
-      "On a quiet evening in the vineyards of Sonoma — the same place we'll say our vows — we said yes to forever.",
+      "On a quiet evening on the shores of Lake Como — the same place we'll say our vows — we said yes to forever.",
   },
 ];
 
@@ -180,16 +180,16 @@ export type Hotel = {
 
 export const hotels: Hotel[] = [
   {
-    name: "The Sonoma Grand Hotel",
+    name: "Hotel Lago Grande",
     description:
       "Our room block is here, a short shuttle ride from the venue. Mention 'Rohit & Sophia' when booking.",
     distance: "5 min from venue",
     bookingNote: "Group rate ends August 1, 2026",
   },
   {
-    name: "Vineyard Inn & Spa",
+    name: "Villa Flora Inn & Spa",
     description:
-      "A boutique option with a spa and pool, ideal for a longer wine-country weekend.",
+      "A boutique option with a spa and pool, ideal for a longer lakeside weekend.",
     distance: "12 min from venue",
     bookingNote: "Limited rooms — book early",
   },
@@ -224,7 +224,7 @@ export const faqs: Faq[] = [
   {
     question: "What's the weather like?",
     answer:
-      "September in Sonoma is warm and sunny by day (low 80s°F) and cool in the evening (mid 50s°F). Bring a light layer for the night.",
+      "September on Lake Como is warm and sunny by day (mid 70s°F) and cool in the evening (upper 50s°F). Bring a light layer for the night.",
   },
   {
     question: "When should I RSVP by?",
@@ -245,7 +245,7 @@ export type RegistryItem = {
 export const registry: RegistryItem[] = [
   {
     name: "Our Honeymoon Fund",
-    description: "Help us toast to married life on our honeymoon in Italy.",
+    description: "Help us toast to married life on our honeymoon in Greece.",
     url: "#",
   },
   {

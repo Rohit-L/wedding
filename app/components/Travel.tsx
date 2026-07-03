@@ -12,7 +12,7 @@ export function Travel() {
       id="travel"
       eyebrow="Travel & Stay"
       title="Getting there"
-      intro="Sonoma is about an hour north of San Francisco. Here's where to stay and how to find us."
+      intro="Lake Como is about an hour north of Milan. Here's where to stay and how to find us."
     >
       <div className="grid gap-6 md:grid-cols-2">
         {hotels.map((hotel, i) => (
