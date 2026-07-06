@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -5,6 +6,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
+  useNavigationType,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -63,8 +66,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Scrolls to the `#section` element after cross-page navigations (e.g. the
+ * nav's "Schedule" link on /rsvp goes to /#schedule). ScrollRestoration
+ * handles same-page hash links but not hashes on a new pathname.
+ */
+function ScrollToHash() {
+  const { hash, key } = useLocation();
+  const navigationType = useNavigationType();
+  useEffect(() => {
+    // Only scroll on PUSH/REPLACE. On POP (back/forward, initial load)
+    // ScrollRestoration restores the saved position — don't clobber it.
+    if (navigationType === "POP" || !hash) return;
+    document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [hash, key, navigationType]);
+  return null;
+}
+
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <ScrollToHash />
+      <Outlet />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

@@ -1,10 +1,17 @@
-import { Form, redirect, useActionData, useNavigation } from "react-router";
+import {
+  Form,
+  redirect,
+  useActionData,
+  useNavigation,
+  useSearchParams,
+} from "react-router";
 
 import type { Route } from "./+types/enter";
 import { couple, heroImage } from "~/data/wedding";
 import {
   createUnlockCookie,
   redirectIfUnlocked,
+  safeRedirect,
   SITE_PASSWORD,
 } from "~/lib/auth.server";
 
@@ -27,7 +34,9 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionData 
     return { error: "That's not quite right — please try again." };
   }
 
-  return redirect("/", {
+  // Send the guest back to wherever they were headed before the gate
+  // (e.g. a /rsvp link from an invitation). Validated to same-site paths.
+  return redirect(safeRedirect(form.get("redirectTo")), {
     headers: { "Set-Cookie": await createUnlockCookie() },
   });
 }
@@ -36,6 +45,8 @@ export default function Enter() {
   const actionData = useActionData() as ActionData;
   const navigation = useNavigation();
   const submitting = navigation.state === "submitting";
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") ?? "";
 
   return (
     <main
@@ -64,6 +75,9 @@ export default function Enter() {
       </p>
 
       <Form method="post" className="mt-10 w-full max-w-xs">
+        {redirectTo && (
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+        )}
         <label htmlFor="password" className="sr-only">
           Password
         </label>

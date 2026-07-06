@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
 import { couple } from "~/data/wedding";
 
 const LINKS = [
-  { href: "#story", label: "Our Story" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#schedule", label: "Schedule" },
-  { href: "#travel", label: "Travel" },
-  { href: "#registry", label: "Registry" },
-  { href: "#faq", label: "FAQ" },
+  { hash: "#story", label: "Our Story" },
+  { hash: "#gallery", label: "Gallery" },
+  { hash: "#schedule", label: "Schedule" },
+  { hash: "#travel", label: "Travel" },
+  { hash: "#registry", label: "Registry" },
+  { hash: "#faq", label: "FAQ" },
 ];
 
 /**
  * Sticky nav: links left, monogram centered, RSVP as a boxed button on the
- * right. Transparent with light text over the hero photo, then flips to a
- * solid page-colored bar with dark text once scrolled (or the mobile menu
- * is open, since it needs an opaque backdrop either way).
+ * right. On the home page it starts transparent with light text over the hero
+ * photo, then flips to a solid page-colored bar with dark text once scrolled
+ * (or when the mobile menu is open). On every other page — which has no dark
+ * hero behind it — it always uses the solid style.
+ *
+ * Section links target the home page's anchors, so from other pages they
+ * navigate to `/#section`.
  */
 export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const inverted = scrolled || open;
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+  const inverted = scrolled || open || !isHome;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -29,6 +36,7 @@ export function SiteNav() {
   }, []);
 
   const monogram = `${couple.partnerOne[0]} & ${couple.partnerTwo[0]}`;
+  const sectionTo = (hash: string) => (isHome ? hash : `/${hash}`);
 
   return (
     <header
@@ -42,15 +50,15 @@ export function SiteNav() {
         {/* Desktop links */}
         <ul className="hidden items-center gap-6 whitespace-nowrap md:flex">
           {LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
+            <li key={link.hash}>
+              <Link
+                to={sectionTo(link.hash)}
                 className={`text-xs font-medium uppercase tracking-[0.14em] transition-colors hover:text-accent ${
                   inverted ? "text-ink" : "text-white"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -73,26 +81,27 @@ export function SiteNav() {
           </span>
         </button>
 
-        <a
-          href="#top"
+        <Link
+          to={isHome ? "#top" : "/"}
           className={`justify-self-center font-display text-lg tracking-wide ${
             inverted ? "text-ink" : "text-white"
           }`}
           onClick={() => setOpen(false)}
         >
           {monogram}
-        </a>
+        </Link>
 
-        <a
-          href="#rsvp"
+        <Link
+          to="/rsvp"
           className={`justify-self-end px-5 py-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] transition-colors ${
             inverted
               ? "bg-ink text-page hover:bg-accent"
               : "bg-white text-ink hover:bg-white/90"
           }`}
+          onClick={() => setOpen(false)}
         >
           RSVP
-        </a>
+        </Link>
       </nav>
 
       {/* Mobile menu */}
@@ -102,14 +111,14 @@ export function SiteNav() {
           className="border-t border-hairline bg-page px-6 py-4 md:hidden"
         >
           {LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
+            <li key={link.hash}>
+              <Link
+                to={sectionTo(link.hash)}
                 className="block py-3 text-sm font-medium uppercase tracking-[0.14em] text-ink"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

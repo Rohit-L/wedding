@@ -11,6 +11,7 @@
     },
     "routeIdToServerBundleId": {
       "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/rsvp": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
       "routes/enter": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
@@ -25,6 +26,15 @@
         "parentId": "root",
         "file": "app/routes/home.tsx",
         "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/rsvp": {
+        "id": "routes/rsvp",
+        "parentId": "root",
+        "file": "app/routes/rsvp.tsx",
+        "path": "rsvp",
         "config": {
           "runtime": "nodejs"
         }
@@ -65,6 +75,12 @@
         "file": "routes/home.tsx",
         "index": true
       },
+      "routes/rsvp": {
+        "id": "routes/rsvp",
+        "parentId": "root",
+        "file": "routes/rsvp.tsx",
+        "path": "rsvp"
+      },
       "routes/enter": {
         "id": "routes/enter",
         "parentId": "root",
@@ -90,6 +106,10 @@
           {
             "file": "routes/home.tsx",
             "index": true
+          },
+          {
+            "file": "routes/rsvp.tsx",
+            "path": "rsvp"
           },
           {
             "file": "routes/enter.tsx",

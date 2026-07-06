@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useActionData, useFetcher } from "react-router";
+import { Link, useActionData, useFetcher } from "react-router";
 import type { FetcherWithComponents } from "react-router";
 import { mealOptions, rsvpDeadline } from "~/data/wedding";
 
@@ -445,13 +445,18 @@ function DonePanel({
         )}
       </div>
 
-      <fetcher.Form method="post" className="mt-8">
-        <input type="hidden" name="intent" value="lookup" />
-        <input type="hidden" name="email" value={data.email} />
-        <button type="submit" disabled={busy} className="btn btn-ghost">
-          {busy ? "One moment…" : "Make a change"}
-        </button>
-      </fetcher.Form>
+      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+        <Link to="/" className="btn btn-primary">
+          Back to home
+        </Link>
+        <fetcher.Form method="post">
+          <input type="hidden" name="intent" value="lookup" />
+          <input type="hidden" name="email" value={data.email} />
+          <button type="submit" disabled={busy} className="btn btn-ghost">
+            {busy ? "One moment…" : "Make a change"}
+          </button>
+        </fetcher.Form>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 # Rohit & Sophia · Wedding Website
 
-A single-page, black-tie-optional wedding site built with
+A black-tie-optional wedding site built with
 [React Router v7](https://reactrouter.com/) (framework mode, SSR) and
-[Tailwind CSS](https://tailwindcss.com/). It includes a full-bleed photo hero
-with a live countdown, our story, an engagement photo gallery, the schedule
-of events, travel & stay info, an RSVP form with meal selection, a registry,
-and an FAQ.
+[Tailwind CSS](https://tailwindcss.com/). The home page includes a full-bleed
+photo hero with a live countdown, our story, an engagement photo gallery, the
+schedule of events, travel & stay info, a registry, and an FAQ; the RSVP form
+(with per-guest meal selection) lives on its own page at `/rsvp`.
 
 ## Editing your details
 
@@ -70,11 +70,14 @@ If a tab's first row is blank the header row is seeded automatically; if a tab
 is missing required columns, writes fail loudly rather than corrupting your
 data.
 
-The form posts to the `action` in [`app/routes/home.tsx`](app/routes/home.tsx)
-(intents `lookup` and `submit`), which validates everything and calls
+RSVPs live on their own page at [`/rsvp`](app/routes/rsvp.tsx) (linked from the
+nav's RSVP button), with the same header and footer as the home page. The form
+posts to that route's `action` (intents `lookup` and `submit`), which validates
+everything and calls
 [`lookupInvite` / `saveInviteRsvp`](app/lib/rsvp-store.server.ts). No partial
 writes: if the submitted guests don't line up with the sheet's rows, nothing is
-written and the guest is asked to start over.
+written and the guest is asked to start over. After submitting, the guest sees
+a confirmation with a "Back to home" button (and can still make changes).
 
 Behavior when something isn't set up:
 

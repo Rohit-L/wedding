@@ -35,11 +35,32 @@ async function isUnlocked(request: Request): Promise<boolean> {
   return session.get("unlocked") === true;
 }
 
-/** Throws a redirect to `/enter` unless the request's session is unlocked. */
+/**
+ * Throws a redirect to `/enter` unless the request's session is unlocked.
+ * The originally requested path rides along as `?redirectTo=` so the guest
+ * lands back where they were headed (e.g. a `/rsvp` link from an invitation)
+ * after unlocking.
+ */
 export async function requireUnlocked(request: Request): Promise<void> {
   if (!(await isUnlocked(request))) {
-    throw redirect("/enter");
+    const { pathname } = new URL(request.url);
+    const search =
+      pathname && pathname !== "/"
+        ? `?redirectTo=${encodeURIComponent(pathname)}`
+        : "";
+    throw redirect(`/enter${search}`);
   }
+}
+
+/**
+ * Validates a user-supplied post-unlock destination: only same-site absolute
+ * paths are allowed (no `//evil.example` protocol-relative escapes).
+ */
+export function safeRedirect(value: unknown, fallback = "/"): string {
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
+    return fallback;
+  }
+  return value;
 }
 
 /** Throws a redirect to `/` if the request is already unlocked. */
