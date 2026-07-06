@@ -33,7 +33,7 @@ export const meta: Route.MetaFunction = () => [
   { title: `${couple.combined} · We're Getting Married` },
   {
     name: "description",
-    content: `Join us to celebrate the wedding of ${couple.combined} on ${wedding.dateLong} in ${wedding.city}. Black tie optional.`,
+    content: `Join us to celebrate the wedding of ${couple.combined} on ${wedding.dateLong} in ${wedding.city}.`,
   },
   { name: "theme-color", content: "#fbfaf8" },
 ];

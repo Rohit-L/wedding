@@ -1,11 +1,11 @@
 # Rohit & Sophia · Wedding Website
 
-A black-tie-optional wedding site built with
+A wedding site built with
 [React Router v7](https://reactrouter.com/) (framework mode, SSR) and
 [Tailwind CSS](https://tailwindcss.com/). The home page includes a full-bleed
-photo hero with a live countdown, our story, an engagement photo gallery, the
-schedule of events, travel & stay info, a registry, and an FAQ; the RSVP form
-(with per-guest meal selection) lives on its own page at `/rsvp`.
+photo hero with a live countdown, the schedule of events, our story, travel &
+stay info, a registry, and an FAQ; the RSVP form (with per-guest meal
+selection) lives on its own page at `/rsvp`.
 
 ## Editing your details
 
@@ -15,12 +15,12 @@ All content lives in one place — edit [`app/data/wedding.ts`](app/data/wedding
 - **Hero photo** — `heroImage`. Leave it empty for an elegant placeholder
   gradient, or point it at a real photo, e.g. `/images/hero.jpg` (drop the
   file in `public/images/`).
+- **Password gate photo** — `lockScreenImage`, shown behind the `/enter`
+  screen. Defaults to `/images/enter.jpg` — drop a photo at that path in
+  `public/images/` and it's picked up automatically; falls back to a
+  placeholder gradient until then.
 - **Schedule** — the list of `events` (day, time, venue, dress code, description).
 - **Our Story** — the `story` timeline moments.
-- **Engagement photos** — the `engagementPhotos` gallery. Each entry shows an
-  elegant placeholder frame with just its caption until you add a `src`
-  pointing at a real image (drop files under `public/images/engagement/` and
-  reference them as `/images/engagement/01.jpg`).
 - **Meal options** — the choices shown on the RSVP form.
 - **Travel** — `hotels` / room block info.
 - **FAQ** and **Registry** entries.

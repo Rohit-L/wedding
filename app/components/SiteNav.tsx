@@ -3,9 +3,8 @@ import { Link, useLocation } from "react-router";
 import { couple } from "~/data/wedding";
 
 const LINKS = [
-  { hash: "#story", label: "Our Story" },
-  { hash: "#gallery", label: "Gallery" },
   { hash: "#schedule", label: "Schedule" },
+  { hash: "#story", label: "Our Story" },
   { hash: "#travel", label: "Travel" },
   { hash: "#registry", label: "Registry" },
   { hash: "#faq", label: "FAQ" },

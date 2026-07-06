@@ -2,7 +2,6 @@ import type { Route } from "./+types/home";
 
 import { Faq } from "~/components/Faq";
 import { Footer } from "~/components/Footer";
-import { Gallery } from "~/components/Gallery";
 import { Hero } from "~/components/Hero";
 import { Registry } from "~/components/Registry";
 import { Schedule } from "~/components/Schedule";
@@ -22,9 +21,8 @@ export default function Home() {
       <SiteNav />
       <main id="main">
         <Hero />
-        <Story />
-        <Gallery />
         <Schedule />
+        <Story />
         <Travel />
         <Registry />
         <Faq />

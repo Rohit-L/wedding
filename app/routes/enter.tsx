@@ -7,7 +7,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/enter";
-import { couple, heroImage } from "~/data/wedding";
+import { couple, lockScreenImage } from "~/data/wedding";
 import {
   createUnlockCookie,
   redirectIfUnlocked,
@@ -57,15 +57,12 @@ export default function Enter() {
         aria-hidden
         className="absolute inset-0 -z-20 bg-cover bg-center"
         style={{
-          backgroundImage: `${heroImage ? `url(${JSON.stringify(heroImage)}), ` : ""}linear-gradient(160deg, #6b6558, #33312b)`,
+          backgroundImage: `${lockScreenImage ? `url(${JSON.stringify(lockScreenImage)}), ` : ""}linear-gradient(160deg, #6b6558, #33312b)`,
         }}
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/45" />
 
-      <p className="text-sm uppercase tracking-[0.3em] text-white/90">
-        You're Invited
-      </p>
-      <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,5rem)] font-normal leading-[0.95] tracking-[-0.01em]">
+      <h1 className="font-display text-[clamp(2.75rem,7vw,5rem)] font-normal leading-[0.95] tracking-[-0.01em]">
         {couple.partnerOne} <span className="italic">&amp;</span>{" "}
         {couple.partnerTwo}
       </h1>

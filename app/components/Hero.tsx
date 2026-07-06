@@ -20,18 +20,10 @@ export function Hero() {
       {/* Darkening scrim so light text stays legible over any photo. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
 
-      <p className="text-sm uppercase tracking-[0.3em] text-white/90">
-        Together with their families
-      </p>
-
-      <h1 className="mt-6 font-display text-[clamp(3.5rem,9vw,7.5rem)] font-normal leading-[0.95] tracking-[-0.01em]">
+      <h1 className="font-display text-[clamp(3.5rem,9vw,7.5rem)] font-normal leading-[0.95] tracking-[-0.01em]">
         {couple.partnerOne} <span className="italic">&amp;</span>{" "}
         {couple.partnerTwo}
       </h1>
-
-      <p className="mt-6 text-xs uppercase tracking-[0.25em] text-white/75">
-        Black Tie Optional
-      </p>
 
       <div className="mt-8 h-12 w-px bg-white/50" aria-hidden />
 
@@ -47,8 +39,8 @@ export function Hero() {
       </div>
 
       <a
-        href="#story"
-        aria-label="Scroll to read our story"
+        href="#schedule"
+        aria-label="Scroll to see the schedule"
         className="absolute bottom-8 text-xs uppercase tracking-[0.2em] text-white/75 transition-colors hover:text-white"
       >
         Scroll

@@ -23,7 +23,7 @@ export function Schedule() {
     <Section
       id="schedule"
       eyebrow="The Schedule"
-      title="Three days of celebration"
+      title="Two days of celebration"
       intro="Here's everything we have planned. Times and locations may shift slightly — check back closer to the date."
       className="bg-surface"
     >
@@ -35,6 +35,10 @@ export function Schedule() {
                 {group.heading}
                 <span className="ml-2 text-base text-muted">· {group.sub}</span>
               </h3>
+              {/* Attire is uniform within a day, so it's shown once per day. */}
+              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-accent">
+                Attire · {group.items[0].dressCode}
+              </p>
 
               <ol className="mt-8 space-y-10 border-l border-hairline pl-8">
                 {group.items.map((event) => (
@@ -53,9 +57,6 @@ export function Schedule() {
                     <p className="mt-3 max-w-[60ch] text-muted">
                       {event.description}
                     </p>
-                    <span className="mt-4 inline-block rounded-sm border border-hairline px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-muted">
-                      Attire · {event.dressCode}
-                    </span>
                   </li>
                 ))}
               </ol>

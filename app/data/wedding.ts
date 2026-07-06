@@ -14,10 +14,13 @@ export const couple = {
 } as const;
 
 export const wedding = {
-  /** ISO 8601 with timezone — drives the countdown timer. */
-  dateISO: "2026-09-12T16:30:00-07:00",
-  dateLong: "Saturday, September 12, 2026",
-  dateShort: "09 . 12 . 26",
+  /**
+   * ISO 8601 with timezone — drives the countdown timer. Counts down to the
+   * start of the first day's festivities, in Lake Como time (CEST).
+   */
+  dateISO: "2027-09-17T16:30:00+02:00",
+  dateLong: "September 17–18, 2027",
+  dateShort: "09 . 17 . 27",
   city: "Lake Como, Italy",
   venueName: "Villa Serena",
 } as const;
@@ -28,6 +31,13 @@ export const wedding = {
  * until you have a real photo to use.
  */
 export const heroImage: string = "";
+
+/**
+ * Full-bleed background photo for the password gate (`/enter`), e.g.
+ * `/images/enter.jpg` (drop the file in `public/images/`). Leave empty for
+ * an elegant placeholder gradient until you have a real photo to use.
+ */
+export const lockScreenImage: string = "/images/enter.jpg";
 
 export type WeddingEvent = {
   id: string;
@@ -43,97 +53,89 @@ export type WeddingEvent = {
 
 export const events: WeddingEvent[] = [
   {
-    id: "mehndi",
-    day: "Friday",
-    date: "September 11, 2026",
-    name: "Mehndi & Henna Afternoon",
-    time: "2:00 PM – 5:00 PM",
-    venue: "The Garden Courtyard",
-    address: "Via Regina 12, Lake Como, Italy",
-    dressCode: "Casual & colorful",
-    description:
-      "Join us for an afternoon of henna, music, and sweets to kick off the celebration. Come relaxed and ready to be adorned.",
-  },
-  {
-    id: "sangeet",
-    day: "Friday",
-    date: "September 11, 2026",
-    name: "Sangeet & Welcome Dinner",
-    time: "7:00 PM – 11:00 PM",
-    venue: "The Grand Pavilion",
-    address: "Via Regina 12, Lake Como, Italy",
-    dressCode: "Festive cocktail",
-    description:
-      "A night of music, dancing, and dinner as our families come together. Expect performances, toasts, and a full dance floor.",
-  },
-  {
     id: "ceremony",
-    day: "Saturday",
-    date: "September 12, 2026",
+    day: "Friday",
+    date: "September 17, 2027",
     name: "Wedding Ceremony",
     time: "4:30 PM – 5:30 PM",
     venue: "The Lakeside Terrace",
     address: "Via Regina 12, Lake Como, Italy",
-    dressCode: "Formal / black-tie optional",
+    dressCode: "Black Tie Optional",
     description:
       "The moment we say 'I do', overlooking the lake at golden hour. Please be seated by 4:15 PM.",
   },
   {
-    id: "cocktails",
-    day: "Saturday",
-    date: "September 12, 2026",
+    id: "friday-cocktails",
+    day: "Friday",
+    date: "September 17, 2027",
     name: "Cocktail Hour",
     time: "5:30 PM – 6:30 PM",
     venue: "The Olive Grove",
     address: "Via Regina 12, Lake Como, Italy",
-    dressCode: "Formal / black-tie optional",
+    dressCode: "Black Tie Optional",
     description:
       "Signature cocktails and hors d'oeuvres while we capture a few photos. Mingle, sip, and find your seat.",
   },
   {
-    id: "reception",
-    day: "Saturday",
-    date: "September 12, 2026",
+    id: "friday-reception",
+    day: "Friday",
+    date: "September 17, 2027",
     name: "Dinner & Reception",
     time: "6:30 PM – 12:00 AM",
     venue: "The Grand Pavilion",
     address: "Via Regina 12, Lake Como, Italy",
-    dressCode: "Formal / black-tie optional",
+    dressCode: "Black Tie Optional",
     description:
       "Dinner, dancing, and a few surprises. Stay late — the best part of the night is always after dessert.",
   },
   {
-    id: "brunch",
-    day: "Sunday",
-    date: "September 13, 2026",
-    name: "Farewell Brunch",
-    time: "10:00 AM – 1:00 PM",
+    id: "baraat",
+    day: "Saturday",
+    date: "September 18, 2027",
+    name: "Baraat",
+    time: "4:00 PM – 4:45 PM",
     venue: "The Garden Courtyard",
     address: "Via Regina 12, Lake Como, Italy",
-    dressCode: "Casual",
+    dressCode: "Indian Formal",
     description:
-      "One last meal together before you head home. Drop in any time — coffee, pastries, and goodbyes.",
+      "The groom makes his grand entrance — join the procession with music, dancing, and plenty of fanfare.",
   },
-];
-
-export type EngagementPhoto = {
-  id: string;
-  caption: string;
-  /**
-   * Path to the photo, e.g. `/images/engagement/01.jpg` (add files under
-   * `public/images/engagement/`). Leave unset to show an elegant placeholder
-   * frame with just the caption until you have a real photo to drop in.
-   */
-  src?: string;
-};
-
-export const engagementPhotos: EngagementPhoto[] = [
-  { id: "1", caption: "Where it all began" },
-  { id: "2", caption: "Adventures together" },
-  { id: "3", caption: "Golden hour" },
-  { id: "4", caption: "Just the two of us" },
-  { id: "5", caption: "Silly & in love" },
-  { id: "6", caption: "The proposal" },
+  {
+    id: "jai-mala",
+    day: "Saturday",
+    date: "September 18, 2027",
+    name: "Jai Mala",
+    time: "5:00 PM – 5:45 PM",
+    venue: "The Lakeside Terrace",
+    address: "Via Regina 12, Lake Como, Italy",
+    dressCode: "Indian Formal",
+    description:
+      "We exchange garlands as our families look on — a joyful tradition marking the start of our union.",
+  },
+  {
+    id: "saturday-cocktails",
+    day: "Saturday",
+    date: "September 18, 2027",
+    name: "Cocktail Hour",
+    time: "6:00 PM – 7:00 PM",
+    venue: "The Olive Grove",
+    address: "Via Regina 12, Lake Como, Italy",
+    dressCode: "Indian Formal",
+    description:
+      "Cocktails and small bites by the water while the evening comes together.",
+  },
+  {
+    id: "saturday-reception",
+    day: "Saturday",
+    date: "September 18, 2027",
+    name: "Dinner & Reception",
+    time: "7:00 PM – 12:00 AM",
+    venue: "The Grand Pavilion",
+    address: "Via Regina 12, Lake Como, Italy",
+    dressCode: "Indian Formal",
+    description:
+      "One more night of dinner and dancing to close out the weekend — bring your best moves.",
+  },
 ];
 
 export type StoryMoment = {
@@ -211,7 +213,7 @@ export const hotels: Hotel[] = [
     description:
       "Our room block is here, a short shuttle ride from the venue. Mention 'Rohit & Sophia' when booking.",
     distance: "5 min from venue",
-    bookingNote: "Group rate ends August 1, 2026",
+    bookingNote: "Group rate ends August 1, 2027",
   },
   {
     name: "Villa Flora Inn & Spa",
@@ -255,7 +257,7 @@ export const faqs: Faq[] = [
   },
   {
     question: "When should I RSVP by?",
-    answer: "Please send your response no later than August 1, 2026.",
+    answer: "Please send your response no later than August 1, 2027.",
   },
   {
     question: "Are pets allowed?",
@@ -288,4 +290,4 @@ export const registry: RegistryItem[] = [
 ];
 
 /** Deadline shown on the RSVP form. */
-export const rsvpDeadline = "August 1, 2026";
+export const rsvpDeadline = "August 1, 2027";
