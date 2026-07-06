@@ -10,7 +10,8 @@
       }
     },
     "routeIdToServerBundleId": {
-      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
+      "routes/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/enter": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
     },
     "routes": {
       "root": {
@@ -24,6 +25,15 @@
         "parentId": "root",
         "file": "app/routes/home.tsx",
         "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/enter": {
+        "id": "routes/enter",
+        "parentId": "root",
+        "file": "app/routes/enter.tsx",
+        "path": "enter",
         "config": {
           "runtime": "nodejs"
         }
@@ -54,6 +64,12 @@
         "parentId": "root",
         "file": "routes/home.tsx",
         "index": true
+      },
+      "routes/enter": {
+        "id": "routes/enter",
+        "parentId": "root",
+        "file": "routes/enter.tsx",
+        "path": "enter"
       }
     },
     "routeDiscovery": {
@@ -74,6 +90,10 @@
           {
             "file": "routes/home.tsx",
             "index": true
+          },
+          {
+            "file": "routes/enter.tsx",
+            "path": "enter"
           }
         ]
       }

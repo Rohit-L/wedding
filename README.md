@@ -43,23 +43,44 @@ Set `SESSION_SECRET` (see [`.env.example`](.env.example)) to a long random
 string in production so the "unlocked" cookie can't be forged. It's optional
 for local dev.
 
-## RSVP submissions → Google Sheet
+## RSVP: invites & guests → Google Sheet
 
-The RSVP form posts to the `action` in
-[`app/routes/home.tsx`](app/routes/home.tsx), which validates the input and then
-calls [`saveRsvp`](app/lib/rsvp-store.server.ts). Each submission **upserts a row
-in the sheet's first tab, keyed by email** — a returning guest updates their
-existing row instead of adding a duplicate. Columns: `Timestamp, Name, Email,
-Attending, Guests, Meal, Dietary, Song, Message`. If the first tab is blank, the
-header row is created automatically on the first write; if it already has
-different columns, the write fails loudly rather than corrupting your data (so
-point `GOOGLE_SHEET_ID` at a blank sheet, or one that already has these columns).
+RSVPs work in two steps. A guest first enters **the email address their
+invitation was sent to** (it acts as the invitation's password). The site looks
+the invite up in the Google Sheet, then shows every guest on that invitation —
+accept/decline and a meal choice per guest, prefilled with any previous answers
+so a household can come back and change their response. Submitting **updates the
+matching guest rows in place** — the sheet always holds exactly one row per
+guest.
+
+The sheet needs **two tabs**, which you pre-fill with your guest list:
+
+| Tab | Purpose | Columns |
+| --- | --- | --- |
+| **1st — Guests** | One row per person | `Timestamp`, `Name`, `Email`, `Attending`, `Meal`, `Dietary`, `Song`, `Message` |
+| **2nd — Invites** | One row per invitation | `Full Name`, `Email`, `Phone Number`, `Total Guest Count` |
+
+You fill in `Name` + `Email` on the Guests tab (the same email as the guest's
+row in Invites) and the Invites tab's columns; the site writes the rest.
+`Attending`/`Meal`/`Dietary` are per-guest; `Song`/`Message` are per-household
+(written to each of the invite's rows); `Timestamp` records when the household
+last responded. Only `Email` and `Total Guest Count` are required on the
+Invites tab — extra columns are ignored. Emails are matched case-insensitively.
+If a tab's first row is blank the header row is seeded automatically; if a tab
+is missing required columns, writes fail loudly rather than corrupting your
+data.
+
+The form posts to the `action` in [`app/routes/home.tsx`](app/routes/home.tsx)
+(intents `lookup` and `submit`), which validates everything and calls
+[`lookupInvite` / `saveInviteRsvp`](app/lib/rsvp-store.server.ts). No partial
+writes: if the submitted guests don't line up with the sheet's rows, nothing is
+written and the guest is asked to start over.
 
 Behavior when something isn't set up:
 
-- **Local dev with no credentials** — submissions are logged to the server
-  console and the guest still sees the confirmation, so you can work on the site
-  without any Google setup.
+- **Local dev with no credentials** — any email brings up a *sample invitation*
+  (two placeholder guests) so you can exercise the whole flow, and submissions
+  are logged to the server console.
 - **Production with missing credentials or a failed write** — the guest sees a
   "please try again" message (never a false confirmation) and the full
   submission is logged so it's recoverable.
@@ -71,9 +92,10 @@ Behavior when something isn't set up:
 2. **Create a service account** (APIs & Services → Credentials → Create
    credentials → Service account). Then, on that service account, create a
    **JSON key** (Keys → Add key → JSON) and download it.
-3. **Create your Google Sheet** and **share it** with the service account's
-   email (the `client_email` in the JSON, ending in
-   `…iam.gserviceaccount.com`) as an **Editor**.
+3. **Create your Google Sheet** with the two tabs described above (Guests
+   first, Invites second) and **share it** with the service account's email
+   (the `client_email` in the JSON, ending in `…iam.gserviceaccount.com`) as
+   an **Editor**.
 4. **Set the environment variables** (copy [`.env.example`](.env.example) to
    `.env` for local dev, and add the same values in your Vercel project
    settings for production):

@@ -10,11 +10,14 @@ import { Schedule } from "~/components/Schedule";
 import { SiteNav } from "~/components/SiteNav";
 import { Story } from "~/components/Story";
 import { Travel } from "~/components/Travel";
-import type { RsvpActionData, RsvpValues } from "~/components/RsvpForm";
+import type { GuestEntry, RsvpActionData } from "~/components/RsvpForm";
+import { mealOptions } from "~/data/wedding";
 import { requireUnlocked } from "~/lib/auth.server";
-import { saveRsvp } from "~/lib/rsvp-store.server";
+import { lookupInvite, saveInviteRsvp } from "~/lib/rsvp-store.server";
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+/** Sanity cap on submitted party size — real invites are far smaller. */
+const MAX_GUESTS = 20;
 
 export async function loader({ request }: Route.LoaderArgs) {
   await requireUnlocked(request);
@@ -27,49 +30,159 @@ export async function action({
   await requireUnlocked(request);
 
   const form = await request.formData();
-  const values: RsvpValues = {
-    name: String(form.get("name") ?? "").trim(),
-    email: String(form.get("email") ?? "").trim(),
-    attending: String(form.get("attending") ?? ""),
-    guests: String(form.get("guests") ?? ""),
-    meal: String(form.get("meal") ?? ""),
-    dietary: String(form.get("dietary") ?? "").trim(),
-    song: String(form.get("song") ?? "").trim(),
-    message: String(form.get("message") ?? "").trim(),
+  const intent = String(form.get("intent") ?? "");
+
+  if (intent === "lookup") return handleLookup(form);
+  if (intent === "submit") return handleSubmit(form);
+  return {
+    step: "lookup",
+    error: "Something went wrong — please try again.",
+    email: "",
   };
+}
 
-  const errors: Partial<Record<keyof RsvpValues, string>> = {};
-  if (!values.name) errors.name = "Please tell us your name.";
-  if (!values.email) {
-    errors.email = "Please add an email so we can confirm.";
-  } else if (!EMAIL_RE.test(values.email)) {
-    errors.email = "That email doesn't look quite right.";
-  }
-  if (values.attending !== "yes" && values.attending !== "no") {
-    errors.attending = "Please let us know if you can make it.";
-  }
-  if (values.attending === "yes" && !values.meal) {
-    errors.meal = "Please choose a meal so we can plan the menu.";
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return { ok: false, errors, values };
-  }
-
-  // Upsert into the Google Sheet (keyed by email). See rsvp-store.server.ts
-  // and the README for the required environment variables.
-  const result = await saveRsvp(values);
-  if (result.status === "error") {
+/** Step 1 — find the invitation for the entered email. */
+async function handleLookup(form: FormData): Promise<RsvpActionData> {
+  const email = String(form.get("email") ?? "").trim();
+  if (!EMAIL_RE.test(email)) {
     return {
-      ok: false,
-      errors: {},
-      formError:
-        "Sorry — we couldn't save your RSVP just now. Please try again in a moment.",
-      values,
+      step: "lookup",
+      error: "That email doesn't look quite right — please try again.",
+      email,
     };
   }
 
-  return { ok: true, name: values.name, attending: values.attending };
+  const result = await lookupInvite(email);
+  if (result.status === "not-found") {
+    return {
+      step: "lookup",
+      error:
+        "We couldn't find an invitation for that email. Try the address your invitation was sent to, or reach out to us directly.",
+      email,
+    };
+  }
+  if (result.status === "error") {
+    return {
+      step: "lookup",
+      error:
+        "Sorry — we couldn't look that up just now. Please try again in a moment.",
+      email,
+    };
+  }
+  if (result.guests.length === 0) {
+    return {
+      step: "lookup",
+      error:
+        "We found your invitation, but no guests are listed on it yet — please reach out to us directly.",
+      email,
+    };
+  }
+
+  return {
+    step: "form",
+    email,
+    totalGuests: result.totalGuests,
+    guests: result.guests,
+    note: result.note,
+    song: result.song,
+  };
+}
+
+/** Step 2 — validate the per-guest responses and write them to the sheet. */
+async function handleSubmit(form: FormData): Promise<RsvpActionData> {
+  const email = String(form.get("inviteEmail") ?? "").trim();
+  const guestCount = Number.parseInt(String(form.get("guestCount") ?? ""), 10);
+  if (
+    !EMAIL_RE.test(email) ||
+    !Number.isFinite(guestCount) ||
+    guestCount < 1 ||
+    guestCount > MAX_GUESTS
+  ) {
+    return {
+      step: "lookup",
+      error: "Something went wrong — please enter your email and try again.",
+      email: EMAIL_RE.test(email) ? email : "",
+    };
+  }
+
+  const guests: GuestEntry[] = [];
+  const errors: Record<string, string> = {};
+  for (let i = 0; i < guestCount; i++) {
+    const name = String(form.get(`guest-${i}-name`) ?? "").trim().slice(0, 120);
+    const attendingRaw = String(form.get(`guest-${i}-attending`) ?? "");
+    const mealId = String(form.get(`guest-${i}-meal`) ?? "");
+    const dietary = String(form.get(`guest-${i}-dietary`) ?? "")
+      .trim()
+      .slice(0, 300);
+
+    if (!name) {
+      // Names come from our own hidden fields — a blank one means tampering
+      // or a stale form. Send the guest back to the lookup step.
+      return {
+        step: "lookup",
+        error: "Something went wrong — please enter your email and try again.",
+        email,
+      };
+    }
+
+    const attending =
+      attendingRaw === "yes" || attendingRaw === "no" ? attendingRaw : "";
+    if (attending === "") {
+      errors[`g${i}-attending`] = `Please choose an option for ${name}.`;
+    }
+    const validMeal = mealOptions.some((m) => m.id === mealId);
+    if (attending === "yes" && !validMeal) {
+      errors[`g${i}-meal`] = `Please choose a meal for ${name}.`;
+    }
+
+    guests.push({
+      name,
+      attending,
+      mealId: attending === "yes" && validMeal ? mealId : "",
+      dietary: attending === "yes" ? dietary : "",
+    });
+  }
+
+  const note = String(form.get("note") ?? "").trim().slice(0, 1000);
+  const song = String(form.get("song") ?? "").trim().slice(0, 200);
+  const parsedTotal = Number.parseInt(String(form.get("totalGuests") ?? ""), 10);
+  const totalGuests =
+    Number.isFinite(parsedTotal) && parsedTotal > 0
+      ? Math.min(parsedTotal, MAX_GUESTS)
+      : guests.length;
+
+  if (Object.keys(errors).length > 0) {
+    return { step: "form", email, totalGuests, guests, note, song, errors };
+  }
+
+  const result = await saveInviteRsvp(email, guests, { note, song });
+  if (result.status === "not-found" || result.status === "mismatch") {
+    return {
+      step: "lookup",
+      error:
+        "Your invitation looks different than expected — please enter your email and try again.",
+      email,
+    };
+  }
+  if (result.status === "error") {
+    return {
+      step: "form",
+      email,
+      totalGuests,
+      guests,
+      note,
+      song,
+      formError:
+        "Sorry — we couldn't save your RSVP just now. Please try again in a moment.",
+    };
+  }
+
+  return {
+    step: "done",
+    email,
+    accepted: guests.filter((g) => g.attending === "yes").map((g) => g.name),
+    declined: guests.filter((g) => g.attending === "no").map((g) => g.name),
+  };
 }
 
 export default function Home() {
