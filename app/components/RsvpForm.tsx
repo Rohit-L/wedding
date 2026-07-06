@@ -177,12 +177,30 @@ function GuestFormStep({
   );
   const [note, setNote] = useState(data.note);
   const [song, setSong] = useState(data.song);
-  const errors = data.errors ?? {};
 
-  const updateEntry = (index: number, patch: Partial<GuestEntry>) =>
+  // Server errors, minus the ones the guest has since fixed. The cleared list
+  // resets whenever a new response arrives (adjust-state-during-render).
+  const [cleared, setCleared] = useState<string[]>([]);
+  const [lastData, setLastData] = useState(data);
+  if (lastData !== data) {
+    setLastData(data);
+    setCleared([]);
+  }
+  const errors = Object.fromEntries(
+    Object.entries(data.errors ?? {}).filter(([key]) => !cleared.includes(key)),
+  );
+  const hasErrors = Object.keys(errors).length > 0;
+
+  const updateEntry = (
+    index: number,
+    patch: Partial<GuestEntry>,
+    clearError?: string,
+  ) => {
     setEntries((prev) =>
       prev.map((entry, i) => (i === index ? { ...entry, ...patch } : entry)),
     );
+    if (clearError) setCleared((prev) => [...prev, clearError]);
+  };
 
   const seats = data.totalGuests === 1 ? "1 seat" : `${data.totalGuests} seats`;
 
@@ -198,6 +216,11 @@ function GuestFormStep({
           We've reserved {seats} in your honor. Please respond for each guest
           below.
         </p>
+        {data.totalGuests !== data.guests.length && (
+          <p className="mt-2 text-sm text-muted">
+            Missing someone from this list? Please reach out to us directly.
+          </p>
+        )}
       </div>
 
       <div className="mt-10 space-y-10">
@@ -222,11 +245,19 @@ function GuestFormStep({
                     value={option.value}
                     checked={guest.attending === option.value}
                     onChange={() =>
-                      updateEntry(i, {
-                        attending: option.value as "yes" | "no",
-                      })
+                      updateEntry(
+                        i,
+                        { attending: option.value as "yes" | "no" },
+                        `g${i}-attending`,
+                      )
                     }
                     className="peer sr-only"
+                    aria-invalid={errors[`g${i}-attending`] ? true : undefined}
+                    aria-describedby={
+                      errors[`g${i}-attending`]
+                        ? `g${i}-attending-error`
+                        : undefined
+                    }
                   />
                   <div className={cardClass}>{option.label}</div>
                 </label>
@@ -249,8 +280,14 @@ function GuestFormStep({
                           name={`guest-${i}-meal`}
                           value={option.id}
                           checked={guest.mealId === option.id}
-                          onChange={() => updateEntry(i, { mealId: option.id })}
+                          onChange={() =>
+                            updateEntry(i, { mealId: option.id }, `g${i}-meal`)
+                          }
                           className="peer sr-only"
+                          aria-invalid={errors[`g${i}-meal`] ? true : undefined}
+                          aria-describedby={
+                            errors[`g${i}-meal`] ? `g${i}-meal-error` : undefined
+                          }
                         />
                         <div className="flex h-full items-start gap-3 rounded-sm border border-hairline bg-page p-4 transition-colors peer-checked:border-accent peer-checked:bg-accent-soft peer-checked:[&_.tick]:border-accent peer-checked:[&_.tick]:bg-accent peer-checked:[&_.tick_svg]:opacity-100 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">
                           <span className="tick mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full border border-hairline transition-colors">
@@ -339,7 +376,12 @@ function GuestFormStep({
       </div>
 
       <div className="mt-8 space-y-6">
-        <FormErrorBanner>{data.formError}</FormErrorBanner>
+        <FormErrorBanner>
+          {data.formError ??
+            (hasErrors
+              ? "Please complete the highlighted responses above."
+              : undefined)}
+        </FormErrorBanner>
 
         <div className="flex flex-col items-center gap-4">
           <button type="submit" disabled={busy} className="btn btn-primary">

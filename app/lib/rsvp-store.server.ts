@@ -133,8 +133,15 @@ async function ensureHeaders(
   try {
     await sheet.loadHeaderRow();
     hasHeader = sheet.headerValues.length > 0;
-  } catch {
-    // loadHeaderRow throws when row 1 is empty — leave hasHeader false to seed.
+  } catch (error) {
+    // loadHeaderRow throws for a blank row 1 — the only case where seeding is
+    // safe. It ALSO throws for duplicate headers and transient API failures
+    // (429/5xx); reseeding then would destructively rewrite the couple's
+    // header row, so rethrow anything that isn't the blank-row error.
+    const msg = error instanceof Error ? error.message : String(error);
+    if (!/No values in the header row|header cells are blank/i.test(msg)) {
+      throw error;
+    }
   }
 
   if (!hasHeader) {
@@ -258,6 +265,13 @@ export async function lookupInvite(email: string): Promise<LookupResult> {
         ? parsedTotal
         : guests.length;
 
+    if (totalGuests !== guests.length) {
+      console.warn(
+        `[RSVP] Invite "${email}": Total Guest Count (${totalGuests}) doesn't ` +
+          `match the ${guests.length} guest row(s) on the Guests tab — check the sheet.`,
+      );
+    }
+
     return {
       status: "found",
       totalGuests,
@@ -337,7 +351,10 @@ export async function saveInviteRsvp(
       row.set("Song", extras.song);
       row.set("Message", extras.note);
       row.set("Timestamp", respondedAt);
-      await row.save();
+      // raw: write values as literal text — never as formulas. Without this,
+      // guest input starting with = + - or @ would be evaluated by Sheets
+      // (spreadsheet formula injection, e.g. IMPORTXML exfiltration).
+      await row.save({ raw: true });
     }
 
     return { status: "saved" };
