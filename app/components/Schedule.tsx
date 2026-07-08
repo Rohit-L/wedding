@@ -24,7 +24,7 @@ export function Schedule() {
       id="schedule"
       eyebrow="The Schedule"
       title="Two days of celebration"
-      intro="Here's everything we have planned. Times and locations may shift slightly — check back closer to the date."
+      intro="Here's what we have planned. Times and details to come — check back closer to the date."
       className="bg-surface"
     >
       <div className="space-y-16">
@@ -35,28 +35,20 @@ export function Schedule() {
                 {group.heading}
                 <span className="ml-2 text-base text-muted">· {group.sub}</span>
               </h3>
-              {/* Attire is uniform within a day, so it's shown once per day. */}
+              {/* Venue and attire are uniform within a day, shown once. */}
+              <p className="mt-2 text-muted">{group.items[0].venue}</p>
               <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-accent">
                 Attire · {group.items[0].dressCode}
               </p>
 
-              <ol className="mt-8 space-y-10 border-l border-hairline pl-8">
+              <ol className="mt-8 space-y-8 border-l border-hairline pl-8">
                 {group.items.map((event) => (
                   <li key={event.id} className="relative">
                     <span
                       aria-hidden
                       className="absolute -left-[2.3rem] top-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-surface"
                     />
-                    <p className="text-sm font-medium uppercase tracking-[0.1em] text-accent">
-                      {event.time}
-                    </p>
-                    <h4 className="mt-1 font-display text-xl">{event.name}</h4>
-                    <p className="mt-1 text-sm text-muted">
-                      {event.venue} · {event.address}
-                    </p>
-                    <p className="mt-3 max-w-[60ch] text-muted">
-                      {event.description}
-                    </p>
+                    <h4 className="font-display text-xl">{event.name}</h4>
                   </li>
                 ))}
               </ol>

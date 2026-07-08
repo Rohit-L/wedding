@@ -96,7 +96,7 @@ export default function Enter() {
         <button
           type="submit"
           disabled={submitting}
-          className="btn btn-primary mt-8 w-full"
+          className="btn mt-8 w-full bg-white text-ink hover:bg-white/90"
         >
           {submitting ? "Checking…" : "Enter"}
         </button>

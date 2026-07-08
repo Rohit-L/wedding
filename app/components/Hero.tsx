@@ -21,16 +21,14 @@ export function Hero() {
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
 
       <p className="text-sm uppercase tracking-[0.22em] text-white/90">
-        You're invited
+        The wedding of
       </p>
 
       <h1 className="mt-6 font-names text-[clamp(1.75rem,5.5vw,4rem)] font-normal uppercase leading-[1.2] tracking-[0.12em]">
         {couple.partnerOne} &amp; {couple.partnerTwo}
       </h1>
 
-      <div className="mt-8 h-12 w-px bg-white/50" aria-hidden />
-
-      <p className="mt-8 text-sm uppercase tracking-[0.22em] text-white/90">
+      <p className="mt-10 text-sm uppercase tracking-[0.22em] text-white/90">
         {wedding.dateLong}
       </p>
       <p className="mt-2 text-sm uppercase tracking-[0.22em] text-white/90">

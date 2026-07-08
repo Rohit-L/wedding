@@ -44,97 +44,70 @@ export type WeddingEvent = {
   day: string;
   date: string;
   name: string;
-  time: string;
   venue: string;
-  address: string;
   dressCode: string;
-  description: string;
 };
 
+/**
+ * Times and descriptions are intentionally omitted until they're finalized —
+ * the schedule shows each day's venue, attire, and running order only.
+ */
 export const events: WeddingEvent[] = [
   {
     id: "ceremony",
     day: "Friday",
     date: "September 17, 2027",
     name: "Wedding Ceremony",
-    time: "4:30 PM – 5:30 PM",
-    venue: "The Lakeside Terrace",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Villa Pizzo",
     dressCode: "Black Tie Optional",
-    description:
-      "The moment we say 'I do', overlooking the lake at golden hour. Please be seated by 4:15 PM.",
   },
   {
     id: "friday-cocktails",
     day: "Friday",
     date: "September 17, 2027",
     name: "Cocktail Hour",
-    time: "5:30 PM – 6:30 PM",
-    venue: "The Olive Grove",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Villa Pizzo",
     dressCode: "Black Tie Optional",
-    description:
-      "Signature cocktails and hors d'oeuvres while we capture a few photos. Mingle, sip, and find your seat.",
   },
   {
     id: "friday-reception",
     day: "Friday",
     date: "September 17, 2027",
     name: "Dinner & Reception",
-    time: "6:30 PM – 12:00 AM",
-    venue: "The Grand Pavilion",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Villa Pizzo",
     dressCode: "Black Tie Optional",
-    description:
-      "Dinner, dancing, and a few surprises. Stay late — the best part of the night is always after dessert.",
   },
   {
     id: "baraat",
     day: "Saturday",
     date: "September 18, 2027",
     name: "Baraat",
-    time: "4:00 PM – 4:45 PM",
-    venue: "The Garden Courtyard",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Castello Durini",
     dressCode: "Indian Formal",
-    description:
-      "The groom makes his grand entrance — join the procession with music, dancing, and plenty of fanfare.",
   },
   {
     id: "jai-mala",
     day: "Saturday",
     date: "September 18, 2027",
     name: "Jai Mala",
-    time: "5:00 PM – 5:45 PM",
-    venue: "The Lakeside Terrace",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Castello Durini",
     dressCode: "Indian Formal",
-    description:
-      "We exchange garlands as our families look on — a joyful tradition marking the start of our union.",
   },
   {
     id: "saturday-cocktails",
     day: "Saturday",
     date: "September 18, 2027",
     name: "Cocktail Hour",
-    time: "6:00 PM – 7:00 PM",
-    venue: "The Olive Grove",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Castello Durini",
     dressCode: "Indian Formal",
-    description:
-      "Cocktails and small bites by the water while the evening comes together.",
   },
   {
     id: "saturday-reception",
     day: "Saturday",
     date: "September 18, 2027",
     name: "Dinner & Reception",
-    time: "7:00 PM – 12:00 AM",
-    venue: "The Grand Pavilion",
-    address: "Via Regina 12, Lake Como, Italy",
+    venue: "Castello Durini",
     dressCode: "Indian Formal",
-    description:
-      "One more night of dinner and dancing to close out the weekend — bring your best moves.",
   },
 ];
 
