@@ -4,9 +4,9 @@ import { couple } from "~/data/wedding";
 
 const LINKS = [
   { hash: "#schedule", label: "Schedule" },
-  { hash: "#story", label: "Our Story" },
   { hash: "#travel", label: "Travel" },
   { hash: "#registry", label: "Registry" },
+  { hash: "#story", label: "Our Story" },
   { hash: "#faq", label: "FAQ" },
 ];
 
