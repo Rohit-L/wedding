@@ -30,14 +30,14 @@ export const wedding = {
  * in `public/images/`). Leave empty for an elegant placeholder gradient
  * until you have a real photo to use.
  */
-export const heroImage: string = "/images/villa_pizzo.jpeg";
+export const heroImage: string = "/images/vertical_walking.jpg";
 
 /**
  * Full-bleed background photo for the password gate (`/enter`), e.g.
  * `/images/enter.jpg` (drop the file in `public/images/`). Leave empty for
  * an elegant placeholder gradient until you have a real photo to use.
  */
-export const lockScreenImage: string = "/images/villa_pizzo.jpeg";
+export const lockScreenImage: string = "/images/vertical_walking.jpg";
 
 export type WeddingEvent = {
   id: string;
