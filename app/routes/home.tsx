@@ -22,9 +22,9 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Schedule />
-        <Story />
         <Travel />
         <Registry />
+        <Story />
         <Faq />
       </main>
       <Footer />

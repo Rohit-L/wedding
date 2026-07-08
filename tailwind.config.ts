@@ -37,7 +37,7 @@ export default {
       fontFamily: {
         display: ['"Fraunces"', "ui-serif", "Georgia", "serif"],
         // The couple's names on the hero and password pages.
-        names: ['"Libre Baskerville"', "Georgia", "serif"],
+        names: ['"Pinyon Script"', "cursive"],
         sans: [
           '"Inter"',
           "ui-sans-serif",
