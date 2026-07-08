@@ -110,39 +110,6 @@ export const events: WeddingEvent[] = [
   },
 ];
 
-export type StoryMoment = {
-  year: string;
-  title: string;
-  description: string;
-};
-
-export const story: StoryMoment[] = [
-  {
-    year: "2018",
-    title: "How we met",
-    description:
-      "We were introduced by mutual friends at a rooftop dinner in San Francisco and talked until the restaurant closed.",
-  },
-  {
-    year: "2020",
-    title: "Our first trip",
-    description:
-      "A spontaneous road trip up the coast turned into our favorite tradition and the start of a hundred more adventures.",
-  },
-  {
-    year: "2023",
-    title: "Moving in",
-    description:
-      "We adopted a very opinionated cat, filled our kitchen with too many cookbooks, and made a home together.",
-  },
-  {
-    year: "2025",
-    title: "The proposal",
-    description:
-      "On a quiet evening on the shores of Lake Como — the same place we'll say our vows — we said yes to forever.",
-  },
-];
-
 export type MealOption = {
   id: string;
   name: string;

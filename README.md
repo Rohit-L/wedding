@@ -3,9 +3,9 @@
 A wedding site built with
 [React Router v7](https://reactrouter.com/) (framework mode, SSR) and
 [Tailwind CSS](https://tailwindcss.com/). The home page includes a full-bleed
-photo hero with a live countdown, the schedule of events, our story, travel &
-stay info, a registry, and an FAQ; the RSVP form (with per-guest meal
-selection) lives on its own page at `/rsvp`.
+photo hero with a live countdown, the schedule of events, travel info, a
+registry, and an FAQ; the RSVP form (with per-guest meal selection) lives on
+its own page at `/rsvp`.
 
 ## Editing your details
 
@@ -19,11 +19,11 @@ All content lives in one place — edit [`app/data/wedding.ts`](app/data/wedding
   screen. Defaults to `/images/enter.jpg` — drop a photo at that path in
   `public/images/` and it's picked up automatically; falls back to a
   placeholder gradient until then.
-- **Schedule** — the list of `events` (day, time, venue, dress code, description).
-- **Our Story** — the `story` timeline moments.
+- **Schedule** — the list of `events` (day, venue, dress code).
 - **Meal options** — the choices shown on the RSVP form.
-- **Travel** — `hotels` / room block info.
-- **FAQ** and **Registry** entries.
+- **Travel** — the `venues` (Villa Pizzo, Castello Durini) with map links.
+- **Registry** — the `venmoHandle`.
+- **FAQ** entries.
 
 The visual theme (the "Editorial" palette and fonts) is defined as CSS
 variables at the top of [`app/app.css`](app/app.css) — change those to

@@ -6,7 +6,6 @@ import { Hero } from "~/components/Hero";
 import { Registry } from "~/components/Registry";
 import { Schedule } from "~/components/Schedule";
 import { SiteNav } from "~/components/SiteNav";
-import { Story } from "~/components/Story";
 import { Travel } from "~/components/Travel";
 import { requireUnlocked } from "~/lib/auth.server";
 
@@ -24,7 +23,6 @@ export default function Home() {
         <Schedule />
         <Travel />
         <Registry />
-        <Story />
         <Faq />
       </main>
       <Footer />
