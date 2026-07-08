@@ -64,7 +64,7 @@ export function Countdown() {
 
   return (
     <div
-      className="flex items-stretch justify-center"
+      className="flex items-stretch justify-center font-sans"
       role="timer"
       aria-label="Countdown to the wedding"
     >

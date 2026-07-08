@@ -39,7 +39,7 @@ export default {
         // The couple's names on the hero and password pages.
         names: ['"Newsreader"', "Georgia", "serif"],
         sans: [
-          '"Inter"',
+          '"Urbanist"',
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
