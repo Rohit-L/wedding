@@ -64,7 +64,7 @@ export function Countdown() {
 
   return (
     <div
-      className="flex items-stretch justify-center font-sans"
+      className="flex items-stretch justify-center"
       role="timer"
       aria-label="Countdown to the wedding"
     >
@@ -72,7 +72,7 @@ export function Countdown() {
         <div key={unit.key} className="flex">
           {i > 0 && <div className="w-px self-stretch bg-white/30" aria-hidden />}
           <div className="px-4 text-center sm:px-7">
-            <div className="text-4xl font-light tabular-nums sm:text-5xl">
+            <div className="text-3xl tabular-nums sm:text-4xl">
               {format(unit.key)}
             </div>
             <div className="mt-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-white/70">

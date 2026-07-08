@@ -62,10 +62,10 @@ export default function Enter() {
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/45" />
 
-      <h1 className="font-names text-[clamp(3rem,13vw,10rem)] font-normal leading-[1.15]">
-        {couple.partnerOne} and {couple.partnerTwo}
+      <h1 className="font-names text-[clamp(2rem,5.5vw,4rem)] font-normal italic uppercase leading-[1.2] tracking-[0.1em]">
+        {couple.partnerOne} &amp; {couple.partnerTwo}
       </h1>
-      <p className="mt-6 max-w-sm text-sm text-white/75">
+      <p className="mt-10 max-w-sm text-sm text-white/75">
         This celebration is just for our family and friends. Enter the
         password from your invitation to continue.
       </p>

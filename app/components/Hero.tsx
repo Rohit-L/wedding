@@ -24,11 +24,11 @@ export function Hero() {
         The wedding of
       </p>
 
-      <h1 className="mt-6 font-names text-[clamp(3.5rem,14vw,12rem)] font-normal leading-[1.15]">
-        {couple.partnerOne} and {couple.partnerTwo}
+      <h1 className="mt-10 font-names text-[clamp(2.25rem,6vw,4.5rem)] font-normal italic uppercase leading-[1.2] tracking-[0.1em]">
+        {couple.partnerOne} &amp; {couple.partnerTwo}
       </h1>
 
-      <p className="mt-10 text-sm uppercase tracking-[0.22em] text-white/90">
+      <p className="mt-14 text-sm uppercase tracking-[0.22em] text-white/90">
         {wedding.dateLong}
       </p>
       <p className="mt-2 text-sm uppercase tracking-[0.22em] text-white/90">
