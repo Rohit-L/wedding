@@ -22,12 +22,11 @@ export function Schedule() {
   return (
     <Section
       id="schedule"
-      eyebrow="The Schedule"
-      title="Two days of celebration"
-      intro="Here's what we have planned. Times and details to come — check back closer to the date."
+      title="The Schedule"
+      intro="Times and details to come"
       className="bg-surface"
     >
-      <div className="space-y-16">
+      <div className="grid gap-14 md:grid-cols-2 md:gap-10">
         {groups.map((group) => (
           <FadeIn key={`${group.heading}-${group.sub}`}>
             <div>
@@ -43,11 +42,7 @@ export function Schedule() {
 
               <ol className="mt-8 space-y-8 border-l border-hairline pl-8">
                 {group.items.map((event) => (
-                  <li key={event.id} className="relative">
-                    <span
-                      aria-hidden
-                      className="absolute -left-[2.3rem] top-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-surface"
-                    />
+                  <li key={event.id}>
                     <h4 className="font-display text-xl">{event.name}</h4>
                   </li>
                 ))}

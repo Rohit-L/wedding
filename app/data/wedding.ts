@@ -22,7 +22,6 @@ export const wedding = {
   dateLong: "September 17–18, 2027",
   dateShort: "09 . 17 . 27",
   city: "Lake Como, Italy",
-  venueName: "Villa Serena",
 } as const;
 
 /**
@@ -173,27 +172,20 @@ export const mealOptions: MealOption[] = [
   },
 ];
 
-export type Hotel = {
+export type Venue = {
+  /** Which day of the celebration happens here. */
+  day: string;
   name: string;
-  description: string;
-  distance: string;
-  bookingNote: string;
+  /** Search text for the Google Maps "Get Directions" link. */
+  mapsQuery: string;
 };
 
-export const hotels: Hotel[] = [
+export const venues: Venue[] = [
+  { day: "Friday", name: "Villa Pizzo", mapsQuery: "Villa Pizzo, Italy" },
   {
-    name: "Hotel Lago Grande",
-    description:
-      "Our room block is here, a short shuttle ride from the venue. Mention 'Rohit & Sophia' when booking.",
-    distance: "5 min from venue",
-    bookingNote: "Group rate ends August 1, 2027",
-  },
-  {
-    name: "Villa Flora Inn & Spa",
-    description:
-      "A boutique option with a spa and pool, ideal for a longer lakeside weekend.",
-    distance: "12 min from venue",
-    bookingNote: "Limited rooms — book early",
+    day: "Saturday",
+    name: "Castello Durini",
+    mapsQuery: "Castello Durini, Italy",
   },
 ];
 
@@ -238,29 +230,11 @@ export const faqs: Faq[] = [
   },
 ];
 
-export type RegistryItem = {
-  name: string;
-  description: string;
-  url: string;
-};
-
-export const registry: RegistryItem[] = [
-  {
-    name: "Our Honeymoon Fund",
-    description: "Help us toast to married life on our honeymoon in Greece.",
-    url: "#",
-  },
-  {
-    name: "The Home Registry",
-    description: "A few things we're excited about for our new home together.",
-    url: "#",
-  },
-  {
-    name: "A Charitable Gift",
-    description: "Prefer to give back? Donate to a cause close to our hearts.",
-    url: "#",
-  },
-];
+/**
+ * Venmo username for gifts (without the @). Replace with your real handle —
+ * the Registry section links to venmo.com/u/<handle>.
+ */
+export const venmoHandle = "your-venmo-handle";
 
 /** Deadline shown on the RSVP form. */
 export const rsvpDeadline = "August 1, 2027";

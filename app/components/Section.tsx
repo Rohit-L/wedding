@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import { FadeIn } from "./FadeIn";
 
 /**
- * Standard section shell: an uppercase eyebrow, a Fraunces title, a short
- * accent hairline, an optional intro, then the section body. The header is
- * centered and revealed on scroll.
+ * Standard section shell: an optional uppercase eyebrow, a Fraunces title, a
+ * short accent hairline, an optional intro, then the section body. The header
+ * is centered and revealed on scroll.
  */
 export function Section({
   id,
@@ -15,7 +15,7 @@ export function Section({
   className = "",
 }: {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   intro?: string;
   children: ReactNode;
@@ -28,8 +28,8 @@ export function Section({
     >
       <div className="mx-auto max-w-5xl">
         <FadeIn className="text-center">
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3.25rem)] font-normal leading-[1.05]">
+          {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+          <h2 className={`font-display text-[clamp(2rem,4vw,3.25rem)] font-normal leading-[1.05] ${eyebrow ? "mt-4" : ""}`}>
             {title}
           </h2>
           <div className="hairline mt-6" />
