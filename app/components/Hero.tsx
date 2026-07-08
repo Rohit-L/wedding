@@ -20,9 +20,12 @@ export function Hero() {
       {/* Darkening scrim so light text stays legible over any photo. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
 
-      <h1 className="font-display text-[clamp(3.5rem,9vw,7.5rem)] font-normal leading-[0.95] tracking-[-0.01em]">
-        {couple.partnerOne} <span className="italic">&amp;</span>{" "}
-        {couple.partnerTwo}
+      <p className="text-sm uppercase tracking-[0.22em] text-white/90">
+        You're invited
+      </p>
+
+      <h1 className="mt-6 font-names text-[clamp(1.75rem,5.5vw,4rem)] font-normal uppercase leading-[1.2] tracking-[0.12em]">
+        {couple.partnerOne} &amp; {couple.partnerTwo}
       </h1>
 
       <div className="mt-8 h-12 w-px bg-white/50" aria-hidden />
