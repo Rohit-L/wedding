@@ -110,6 +110,20 @@ export const events: WeddingEvent[] = [
   },
 ];
 
+/**
+ * Attire inspiration images, keyed by dress code, shown on the Schedule under
+ * the matching day(s). Drop files in `public/images/`.
+ */
+export const attireInspiration: Record<
+  string,
+  { src: string; alt: string }[]
+> = {
+  "Black Tie Optional": [
+    { src: "/images/attire-men.jpg", alt: "Black tie optional inspiration for him" },
+    { src: "/images/attire-women.jpg", alt: "Black tie optional inspiration for her" },
+  ],
+};
+
 export type MealOption = {
   id: string;
   name: string;
