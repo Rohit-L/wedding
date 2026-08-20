@@ -20,7 +20,12 @@ export function DressCode() {
       title="Dress Code"
       intro="A few looks for inspiration"
     >
-      <div className="grid gap-14 md:grid-cols-2 md:gap-10">
+      <p className="mx-auto max-w-[60ch] text-center text-sm text-muted">
+        One favor to ask: please leave white and red for the couple — on both
+        days.
+      </p>
+
+      <div className="mt-10 grid gap-14 md:grid-cols-2 md:gap-10">
         {codes.map((code) => {
           const images = attireInspiration[code];
           return (
@@ -34,7 +39,7 @@ export function DressCode() {
                         key={img.src}
                         src={img.src}
                         alt={img.alt}
-                        className="aspect-[2/3] w-full rounded-sm object-cover"
+                        className="w-full rounded-sm object-contain"
                       />
                     ))}
                   </div>

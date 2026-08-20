@@ -1,5 +1,4 @@
 import { couple, heroImage, wedding } from "~/data/wedding";
-import { Countdown } from "./Countdown";
 
 export function Hero() {
   return (
@@ -24,7 +23,7 @@ export function Hero() {
         The wedding of
       </p>
 
-      <h1 className="mt-10 font-names text-[clamp(2.25rem,6vw,4.5rem)] font-normal italic uppercase leading-[1.2] tracking-[0.1em]">
+      <h1 className="mt-10 font-names text-[clamp(2.25rem,6vw,4.5rem)] font-normal uppercase leading-[1.2] tracking-[0.1em]">
         {couple.partnerOne} &amp; {couple.partnerTwo}
       </h1>
 
@@ -34,10 +33,6 @@ export function Hero() {
       <p className="mt-2 text-sm uppercase tracking-[0.22em] text-white/90">
         {wedding.city}
       </p>
-
-      <div className="mt-12">
-        <Countdown />
-      </div>
 
       <a
         href="#schedule"
