@@ -20,7 +20,7 @@
 /* Space-separated RGB triplets (not hex) so Tailwind's `/opacity` modifiers,
    e.g. `border-accent/30`, can compose them into `rgb(var(...) / alpha)`. */
 :root {
-  --color-page: 251 250 248;
+  --color-page: 255 255 255;
   --color-surface: 243 241 236;
   --color-ink: 28 27 24;
   --color-muted: 122 118 108;
