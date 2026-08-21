@@ -23,7 +23,7 @@ export function Hero() {
           padding and the scroll cue, so they land in the true vertical
           middle as one group. */}
       <div className="flex flex-1 flex-col items-center justify-center gap-8">
-        <h1 className="font-heroNames whitespace-nowrap text-center text-[clamp(1.75rem,9vw,6.5rem)] font-normal uppercase leading-[1.2] tracking-[0.1em]">
+        <h1 className="font-heroNames whitespace-nowrap text-center text-[clamp(2.5rem,20vw,18rem)] font-normal leading-[1.2] tracking-[-0.02em]">
           {couple.partnerOne} &amp; {couple.partnerTwo}
         </h1>
 
