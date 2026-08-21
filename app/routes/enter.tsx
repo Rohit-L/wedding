@@ -62,7 +62,7 @@ export default function Enter() {
       />
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/45" />
 
-      <h1 className="font-heroNames text-[clamp(2rem,5.5vw,4rem)] font-normal uppercase leading-[1.2] tracking-[0.1em]">
+      <h1 className="font-heroNames whitespace-nowrap text-center text-[clamp(1.5rem,5.5vw,4rem)] font-normal uppercase leading-[1.2] tracking-[0.1em]">
         {couple.partnerOne} &amp; {couple.partnerTwo}
       </h1>
       <p className="mt-10 max-w-sm text-sm text-white/75">
