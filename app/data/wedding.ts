@@ -215,7 +215,7 @@ export const faqs: Faq[] = [
  * Venmo username for gifts (without the @). Replace with your real handle —
  * the Registry section links to venmo.com/u/<handle>.
  */
-export const venmoHandle = "your-venmo-handle";
+export const venmoHandle = "Sophia-Zheng-1";
 
 /** Deadline shown on the RSVP form. */
 export const rsvpDeadline = "August 1, 2027";

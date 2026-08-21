@@ -1,6 +1,5 @@
 import type { Route } from "./+types/rsvp";
 
-import { Footer } from "~/components/Footer";
 import { Rsvp } from "~/components/Rsvp";
 import { SiteNav } from "~/components/SiteNav";
 import type { GuestEntry, RsvpActionData } from "~/components/RsvpForm";
@@ -193,11 +192,9 @@ export default function RsvpPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteNav />
-      {/* flex-1 keeps the footer at the bottom even when the lookup step is short. */}
       <main id="main" className="flex-1 pt-20">
         <Rsvp />
       </main>
-      <Footer />
     </div>
   );
 }

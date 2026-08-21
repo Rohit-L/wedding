@@ -6,8 +6,7 @@ export function Faq() {
   return (
     <Section
       id="faq"
-      eyebrow="FAQ"
-      title="Good to know"
+      title="FAQ"
       intro="Still have a question? Reach out to us any time — we're happy to help."
     >
       <FadeIn className="mx-auto max-w-3xl">

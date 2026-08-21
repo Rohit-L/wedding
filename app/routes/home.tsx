@@ -2,7 +2,6 @@ import type { Route } from "./+types/home";
 
 import { DressCode } from "~/components/DressCode";
 import { Faq } from "~/components/Faq";
-import { Footer } from "~/components/Footer";
 import { Hero } from "~/components/Hero";
 import { Registry } from "~/components/Registry";
 import { Schedule } from "~/components/Schedule";
@@ -27,7 +26,6 @@ export default function Home() {
         <Registry />
         <Faq />
       </main>
-      <Footer />
     </>
   );
 }

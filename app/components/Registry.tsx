@@ -6,8 +6,7 @@ export function Registry() {
   return (
     <Section
       id="registry"
-      eyebrow="Registry"
-      title="Your presence is the present"
+      title="Registry"
       intro="Truly — celebrating with you is more than enough. But if you'd like to give a gift, we're keeping it simple."
     >
       <FadeIn className="mx-auto max-w-md">

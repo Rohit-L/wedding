@@ -6,8 +6,7 @@ export function Travel() {
   return (
     <Section
       id="travel"
-      eyebrow="Travel & Stay"
-      title="Getting there"
+      title="Travel & Stay"
       intro="Lake Como is about an hour from Milan — we recommend taking the train from Milan to Lake Como. Hotel recommendations to come."
     >
       <div className="grid gap-6 md:grid-cols-2">

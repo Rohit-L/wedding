@@ -22,7 +22,7 @@ export function Schedule() {
   return (
     <Section
       id="schedule"
-      title="The Schedule"
+      title="Schedule"
       intro="Times and details to come"
       className="bg-surface"
     >
