@@ -21,7 +21,7 @@
    e.g. `border-accent/30`, can compose them into `rgb(var(...) / alpha)`. */
 :root {
   --color-page: 255 255 255;
-  --color-surface: 243 241 236;
+  --color-surface: 255 255 255;
   --color-ink: 28 27 24;
   --color-muted: 122 118 108;
   --color-accent: 152 128 94;
