@@ -36,9 +36,7 @@ export default {
       },
       fontFamily: {
         display: ['"Fraunces"', "ui-serif", "Georgia", "serif"],
-        // The couple's names on the password page.
-        names: ['"Newsreader"', "Georgia", "serif"],
-        // The couple's names on the hero landing page.
+        // The couple's names on the hero and password pages.
         heroNames: ['"Agatho Light"', "ui-sans-serif", "sans-serif"],
         sans: [
           '"Urbanist"',
