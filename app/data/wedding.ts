@@ -45,6 +45,7 @@ export type WeddingEvent = {
   name: string;
   venue: string;
   dressCode: string;
+  description?: string;
 };
 
 /**
@@ -83,6 +84,8 @@ export const events: WeddingEvent[] = [
     name: "Baraat",
     venue: "Castello Durini",
     dressCode: "Indian Formal",
+    description:
+      "The groom's entrance, with music and dancing. Family and friends of the groom escort him to the wedding venue. This is a lively and celebratory event.",
   },
   {
     id: "jai-mala",
@@ -91,6 +94,8 @@ export const events: WeddingEvent[] = [
     name: "Jai Mala",
     venue: "Castello Durini",
     dressCode: "Indian Formal",
+    description:
+      "The bride and groom exchange flower garlands to symbolize their unity.",
   },
   {
     id: "saturday-cocktails",

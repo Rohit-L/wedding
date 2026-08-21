@@ -23,7 +23,7 @@ export function Schedule() {
     <Section
       id="schedule"
       title="Schedule"
-      intro="Times and details to come"
+      intro="We are having a two-day wedding, which means double the celebration! Exact timing of events and details to come."
       className="bg-surface"
     >
       <div className="grid gap-14 md:grid-cols-2 md:gap-10">
@@ -44,6 +44,9 @@ export function Schedule() {
                 {group.items.map((event) => (
                   <li key={event.id}>
                     <h4 className="font-display text-xl">{event.name}</h4>
+                    {event.description && (
+                      <p className="mt-2 text-muted">{event.description}</p>
+                    )}
                   </li>
                 ))}
               </ol>
