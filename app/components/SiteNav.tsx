@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
-import { couple } from "~/data/wedding";
 
 const LINKS = [
   { hash: "#schedule", label: "Schedule" },
   { hash: "#dress-code", label: "Dress Code" },
   { hash: "#travel", label: "Travel" },
   { hash: "#registry", label: "Registry" },
+  { to: "/rsvp", label: "RSVP" },
   { hash: "#faq", label: "FAQ" },
 ];
 
 /**
- * Sticky nav: links left, monogram centered, RSVP as a boxed button on the
- * right. On the home page it starts transparent with light text over the hero
- * photo, then flips to a solid page-colored bar with dark text once scrolled
- * (or when the mobile menu is open). On every other page — which has no dark
- * hero behind it — it always uses the solid style.
+ * Sticky nav: links centered. On the home page it starts transparent with
+ * light text over the hero photo, then flips to a solid page-colored bar
+ * with dark text once scrolled (or when the mobile menu is open). On every
+ * other page — which has no dark hero behind it — it always uses the solid
+ * style.
  *
  * Section links target the home page's anchors, so from other pages they
  * navigate to `/#section`.
@@ -34,7 +34,6 @@ export function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const monogram = `${couple.partnerOne[0]} & ${couple.partnerTwo[0]}`;
   const sectionTo = (hash: string) => (isHome ? hash : `/${hash}`);
 
   return (
@@ -46,26 +45,10 @@ export function SiteNav() {
       }`}
     >
       <nav className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 py-5">
-        {/* Desktop links */}
-        <ul className="hidden items-center gap-6 whitespace-nowrap md:flex">
-          {LINKS.map((link) => (
-            <li key={link.hash}>
-              <Link
-                to={sectionTo(link.hash)}
-                className={`text-xs font-medium uppercase tracking-[0.14em] transition-colors hover:text-accent ${
-                  inverted ? "text-ink" : "text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
         {/* Mobile toggle */}
         <button
           type="button"
-          className="justify-self-start md:hidden"
+          className="col-start-1 justify-self-start md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
@@ -80,27 +63,21 @@ export function SiteNav() {
           </span>
         </button>
 
-        <Link
-          to={isHome ? "#top" : "/"}
-          className={`justify-self-center font-display text-lg tracking-wide ${
-            inverted ? "text-ink" : "text-white"
-          }`}
-          onClick={() => setOpen(false)}
-        >
-          {monogram}
-        </Link>
-
-        <Link
-          to="/rsvp"
-          className={`justify-self-end px-5 py-2.5 text-[0.6875rem] font-medium uppercase tracking-[0.14em] transition-colors ${
-            inverted
-              ? "bg-ink text-page hover:bg-accent"
-              : "bg-white text-ink hover:bg-white/90"
-          }`}
-          onClick={() => setOpen(false)}
-        >
-          RSVP
-        </Link>
+        {/* Desktop links, centered */}
+        <ul className="col-start-2 hidden items-center gap-6 whitespace-nowrap md:flex">
+          {LINKS.map((link) => (
+            <li key={link.to ?? link.hash}>
+              <Link
+                to={link.to ?? sectionTo(link.hash)}
+                className={`text-xs font-medium uppercase tracking-[0.14em] transition-colors hover:text-accent ${
+                  inverted ? "text-ink" : "text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
 
       {/* Mobile menu */}
@@ -110,9 +87,9 @@ export function SiteNav() {
           className="border-t border-hairline bg-page px-6 py-4 md:hidden"
         >
           {LINKS.map((link) => (
-            <li key={link.hash}>
+            <li key={link.to ?? link.hash}>
               <Link
-                to={sectionTo(link.hash)}
+                to={link.to ?? sectionTo(link.hash)}
                 className="block py-3 text-sm font-medium uppercase tracking-[0.14em] text-ink"
                 onClick={() => setOpen(false)}
               >

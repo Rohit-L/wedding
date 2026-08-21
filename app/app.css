@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The couple's names on the hero landing page. */
+@font-face {
+  font-family: "Agatho Light";
+  src: url("/fonts/Agatho_ Light.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ──────────────────────────────────────────────────────────────────────────
    Editorial — design tokens
    A bright, photo-led palette: warm white, warm charcoal ink, and a soft

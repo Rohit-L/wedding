@@ -4,7 +4,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative z-0 flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-20 pt-28 text-center text-white"
+      className="relative z-0 flex min-h-screen flex-col items-center overflow-hidden px-6 pb-20 pt-28 text-center text-white"
       style={{ textShadow: "0 2px 20px rgb(0 0 0 / 35%)" }}
     >
       {/* Full-bleed photo. The gradient is a second background layer, so it
@@ -19,20 +19,18 @@ export function Hero() {
       {/* Darkening scrim so light text stays legible over any photo. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
 
-      <p className="text-sm uppercase tracking-[0.22em] text-white/90">
-        The wedding of
-      </p>
+      {/* Names and date sit together in the remaining space between the top
+          padding and the scroll cue, so they land in the true vertical
+          middle as one group. */}
+      <div className="flex flex-1 flex-col items-center justify-center gap-8">
+        <h1 className="font-heroNames text-[clamp(3rem,9vw,6.5rem)] font-normal uppercase leading-[1.2] tracking-[0.1em]">
+          {couple.partnerOne} &amp; {couple.partnerTwo}
+        </h1>
 
-      <h1 className="mt-10 font-names text-[clamp(2.25rem,6vw,4.5rem)] font-normal uppercase leading-[1.2] tracking-[0.1em]">
-        {couple.partnerOne} &amp; {couple.partnerTwo}
-      </h1>
-
-      <p className="mt-14 text-sm uppercase tracking-[0.22em] text-white/90">
-        {wedding.dateLong}
-      </p>
-      <p className="mt-2 text-sm uppercase tracking-[0.22em] text-white/90">
-        {wedding.city}
-      </p>
+        <p className="text-sm uppercase tracking-[0.22em] text-white/90">
+          {wedding.dateLong} | {wedding.city}
+        </p>
+      </div>
 
       <a
         href="#schedule"

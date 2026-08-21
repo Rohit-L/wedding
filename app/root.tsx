@@ -22,7 +22,8 @@ export const links: Route.LinksFunction = () => [
     crossOrigin: "anonymous",
   },
   // Urbanist (countdown) + Fraunces (display) + Libre Baskerville (body) +
-  // Newsreader (the couple's names).
+  // Newsreader (the couple's names on the password page). The hero's name
+  // font is self-hosted (see app.css) since it isn't on Google Fonts.
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
