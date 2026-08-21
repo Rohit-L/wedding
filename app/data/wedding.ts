@@ -196,7 +196,7 @@ export const faqs: Faq[] = [
   {
     question: "What should I wear?",
     answer:
-      "Each event has its own dress code listed on the Schedule. The ceremony and reception are formal / black-tie optional. When in doubt, dress to celebrate!",
+      "Each event has its own dress code listed on the Schedule. The first day is black-tie optional and the second day is Indian formal. We've also included some pictures for inspiration under Dress Code. When in doubt, dress to impress!",
   },
   {
     question: "Can I bring a plus-one?",
@@ -206,17 +206,12 @@ export const faqs: Faq[] = [
   {
     question: "Are kids welcome?",
     answer:
-      "We love your little ones! There's a kids' meal option on the RSVP form. Let us know in your response so we can plan accordingly.",
-  },
-  {
-    question: "Is there parking?",
-    answer:
-      "Yes, complimentary valet and self-parking are available at the venue. We'll also run a shuttle from the room-block hotel.",
+      "As much as we love your little ones, we've decided to keep our celebration an adults-only affair, except for those specifically included on your invitation. We hope this gives you a chance to relax and celebrate with us!",
   },
   {
     question: "What's the weather like?",
     answer:
-      "September on Lake Como is warm and sunny by day (mid 70s°F) and cool in the evening (upper 50s°F). Bring a light layer for the night.",
+      "September on Lake Como is warm and sunny by day (mid 70s°F) and cool in the evening (upper 50s°F). Most wedding events will take place outdoors.",
   },
   {
     question: "When should I RSVP by?",
@@ -224,7 +219,8 @@ export const faqs: Faq[] = [
   },
   {
     question: "Are pets allowed?",
-    answer: "Only Coco.",
+    answer:
+      "Our wedding venues have strict restrictions on pets. Only pets of the bride and groom are allowed.",
   },
 ];
 
