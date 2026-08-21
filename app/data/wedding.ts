@@ -196,7 +196,7 @@ export const faqs: Faq[] = [
   {
     question: "What should I wear?",
     answer:
-      "Each event has its own dress code listed on the Schedule. The first day is black-tie optional and the second day is Indian formal. We've also included some pictures for inspiration under Dress Code. When in doubt, dress to impress!",
+      "Each event has its own dress code listed on the schedule. The first day is black-tie optional and the second day is Indian formal. We've also included some pictures for inspiration under Dress Code. When in doubt, dress to impress!",
   },
   {
     question: "Can I bring a plus-one?",
