@@ -1,20 +1,12 @@
-import { attireInspiration, events } from "~/data/wedding";
+import { attireInspiration, dressCodeNotes, events } from "~/data/wedding";
 import { FadeIn } from "./FadeIn";
 import { Section } from "./Section";
 
-/**
- * Dress codes in the order they first appear on the Schedule, each labeled
- * with the day it belongs to (in appearance order) since the Schedule's own
- * "Attire ·" line shows the dress code without that day prefix.
- */
+/** Dress codes in the order they first appear on the Schedule. */
 function uniqueDressCodes(list: typeof events) {
-  const codes: { code: string; label: string }[] = [];
-  const days: string[] = [];
+  const codes: string[] = [];
   for (const event of list) {
-    if (codes.some((c) => c.code === event.dressCode)) continue;
-    if (!days.includes(event.day)) days.push(event.day);
-    const dayNumber = days.indexOf(event.day) + 1;
-    codes.push({ code: event.dressCode, label: `Day ${dayNumber} - ${event.dressCode}` });
+    if (!codes.includes(event.dressCode)) codes.push(event.dressCode);
   }
   return codes;
 }
@@ -26,20 +18,20 @@ export function DressCode() {
     <Section
       id="dress-code"
       title="Dress Code"
-      intro="A few looks for inspiration"
+      intro="Each day has its own dress code and we've included some examples for inspiration. We kindly ask you to refrain from wearing white or ivory and red on both wedding days."
     >
-      <p className="mx-auto max-w-[60ch] text-center text-sm text-muted">
-        One favor to ask: please leave white and red for the couple — on both
-        days.
-      </p>
-
-      <div className="mt-10 grid gap-14 md:grid-cols-2 md:gap-10">
-        {codes.map(({ code, label }) => {
+      <div className="grid gap-14 md:grid-cols-2 md:gap-10">
+        {codes.map((code) => {
           const images = attireInspiration[code];
           return (
             <FadeIn key={code}>
               <div className="text-center">
-                <h3 className="font-display text-2xl">{label}</h3>
+                <h3 className="font-display text-2xl">{code}</h3>
+                {dressCodeNotes[code] && (
+                  <p className="mx-auto mt-3 max-w-[45ch] text-muted">
+                    {dressCodeNotes[code]}
+                  </p>
+                )}
                 {images && (
                   <div className="mt-6 grid grid-cols-2 gap-4">
                     {images.map((img) => (

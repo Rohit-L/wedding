@@ -124,9 +124,21 @@ export const attireInspiration: Record<
   { src: string; alt: string }[]
 > = {
   "Black Tie Optional": [
-    { src: "/images/attire-men.jpg", alt: "Black tie optional inspiration for him" },
-    { src: "/images/attire-women.jpg", alt: "Black tie optional inspiration for her" },
+    { src: "/images/day%201%20men.jpg", alt: "Black tie optional inspiration for him" },
+    { src: "/images/day%201%20women.jpg", alt: "Black tie optional inspiration for her" },
   ],
+  "Indian Formal": [
+    { src: "/images/day%202%20men.jpeg", alt: "Indian formal inspiration for him" },
+    { src: "/images/day%202%20women.jpeg", alt: "Indian formal inspiration for her" },
+  ],
+};
+
+/** Short notes shown under a dress code's heading on the Dress Code section. */
+export const dressCodeNotes: Record<string, string> = {
+  "Black Tie Optional":
+    "We invite you to dress elegantly for our first day of celebration. Gentlemen are encouraged to wear tuxedos or dark suits, and ladies are invited to wear floor-length dresses. Please refrain from wearing white or ivory and red.",
+  "Indian Formal":
+    "Our second day celebrates Indian tradition and festivity. Gentlemen may wear kurta sets or sherwanis, and ladies are welcome in lehengas or sarees. We encourage bright and vibrant attire. Please refrain from wearing white or ivory and red.",
 };
 
 export type MealOption = {
