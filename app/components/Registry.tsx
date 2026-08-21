@@ -7,7 +7,7 @@ export function Registry() {
     <Section
       id="registry"
       title="Registry"
-      intro="Truly — celebrating with you is more than enough. But if you'd like to give a gift, we're keeping it simple."
+      intro="We don't have a wedding registry. Celebrating with our family and closest friends is a gift in itself. If you'd like to give a gift, you can contribute to our honeymoon fund."
     >
       <FadeIn className="mx-auto max-w-md">
         <div className="rounded-sm border border-hairline p-10 text-center">

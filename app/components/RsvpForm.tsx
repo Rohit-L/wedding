@@ -123,7 +123,11 @@ function LookupStep({
   email: string;
 }) {
   return (
-    <fetcher.Form method="post" className="mx-auto max-w-md text-center">
+    <fetcher.Form
+      method="post"
+      action="/rsvp"
+      className="mx-auto max-w-md text-center"
+    >
       <input type="hidden" name="intent" value="lookup" />
       <div className="text-left">
         <label htmlFor="rsvp-email" className={labelClass}>
@@ -205,7 +209,7 @@ function GuestFormStep({
   const seats = data.totalGuests === 1 ? "1 seat" : `${data.totalGuests} seats`;
 
   return (
-    <fetcher.Form method="post" className="mx-auto max-w-xl">
+    <fetcher.Form method="post" action="/rsvp" className="mx-auto max-w-xl">
       <input type="hidden" name="intent" value="submit" />
       <input type="hidden" name="inviteEmail" value={data.email} />
       <input type="hidden" name="totalGuests" value={data.totalGuests} />
@@ -446,10 +450,10 @@ function DonePanel({
       </div>
 
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-        <Link to="/" className="btn btn-primary">
+        <Link to="/#top" className="btn btn-primary">
           Back to home
         </Link>
-        <fetcher.Form method="post">
+        <fetcher.Form method="post" action="/rsvp">
           <input type="hidden" name="intent" value="lookup" />
           <input type="hidden" name="email" value={data.email} />
           <button type="submit" disabled={busy} className="btn btn-ghost">

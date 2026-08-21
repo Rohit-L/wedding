@@ -7,7 +7,7 @@ export function Travel() {
     <Section
       id="travel"
       title="Travel & Stay"
-      intro="Lake Como is about an hour from Milan — we recommend taking the train from Milan to Lake Como. Hotel recommendations to come."
+      intro="We recommend taking the train from Milan to Lake Como. We are also working on securing a hotel room block."
     >
       <div className="grid gap-6 md:grid-cols-2">
         {venues.map((venue, i) => (

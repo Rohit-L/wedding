@@ -6,7 +6,7 @@ const LINKS = [
   { hash: "#dress-code", label: "Dress Code" },
   { hash: "#travel", label: "Travel" },
   { hash: "#registry", label: "Registry" },
-  { to: "/rsvp", label: "RSVP" },
+  { hash: "#rsvp", label: "RSVP" },
   { hash: "#faq", label: "FAQ" },
 ];
 
@@ -66,9 +66,9 @@ export function SiteNav() {
         {/* Desktop links, centered */}
         <ul className="col-start-2 hidden items-center gap-6 whitespace-nowrap md:flex">
           {LINKS.map((link) => (
-            <li key={link.to ?? link.hash}>
+            <li key={link.hash}>
               <Link
-                to={link.to ?? sectionTo(link.hash)}
+                to={sectionTo(link.hash)}
                 className={`text-xs font-medium uppercase tracking-[0.14em] transition-colors hover:text-accent ${
                   inverted ? "text-ink" : "text-white"
                 }`}
@@ -87,9 +87,9 @@ export function SiteNav() {
           className="border-t border-hairline bg-page px-6 py-4 md:hidden"
         >
           {LINKS.map((link) => (
-            <li key={link.to ?? link.hash}>
+            <li key={link.hash}>
               <Link
-                to={link.to ?? sectionTo(link.hash)}
+                to={sectionTo(link.hash)}
                 className="block py-3 text-sm font-medium uppercase tracking-[0.14em] text-ink"
                 onClick={() => setOpen(false)}
               >
