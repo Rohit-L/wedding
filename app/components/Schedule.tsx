@@ -36,7 +36,7 @@ export function Schedule() {
               </h3>
               {/* Venue and attire are uniform within a day, shown once. */}
               <p className="mt-2 text-muted">{group.items[0].venue}</p>
-              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-accent">
+              <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-ink">
                 Attire · {group.items[0].dressCode}
               </p>
 
